@@ -1,1 +1,1 @@
-
+Hey guys! This our CSCI 466 Databases repository!
