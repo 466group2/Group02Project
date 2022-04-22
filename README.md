@@ -59,7 +59,7 @@ your computer should now be linked with github. this is the same process with tu
 
 Making your pc auto log in 
 
- - Not necessary from what I remember but saves a lot of time and headaches. Got to your disk > user > YOUR_USER_HERE 
+ - Not necessary from what I remember but saves a lot of time and headaches. Go to your disk > user > YOUR_USER_HERE 
  - if you don't see a .bashrc create one now by opening a git bash in your user folder (right click > git bash here) and running touch .bashrc
  - copy the following into the .bashrc file:
 
