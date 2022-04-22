@@ -12,7 +12,7 @@ If anything is a pressing issue keep in mind that the Blackboard Group has the a
 
 
 ## Installing Git on your local machine(Windows):
- - Install git bash from the git website https://git-scm.com/downloads (if it suggests git gui with during the "Select Components" windows, you can uncheck that)
+ - Install git bash from the git website https://git-scm.com/downloads (if it suggests git gui during the "Select Components" windows, you can uncheck that)
  - if you need a video this one is pretty straightforward for windows https://www.youtube.com/watch?v=qdwWe9COT9k (actual useful bit starts at 2:50)
  - if you use vscode you can change it to the default editor for git now. install with the defaults for the rest if you have no preference for them.
  - make sure git credential manager is enabled
@@ -61,7 +61,10 @@ your computer should now be linked with github. this is the same process with tu
 Making your pc auto log in 
 
  - Not necessary from what I remember but saves a lot of time and headaches. Go to your disk > user > YOUR_USER_HERE 
- - if you don't see a .bashrc create one now by opening a git bash in your user folder (right click > git bash here) and running touch .bashrc
+ - if you don't see a .bashrc create one now by opening a git bash in your user folder (right click > git bash here) and running 
+ ```
+ touch .bashrc
+ ```
  - copy the following into the .bashrc file:
 
 ```
