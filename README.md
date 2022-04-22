@@ -88,3 +88,19 @@ unset env
 ```
 
 Now whenever you run a git bash you should be able to commit, pull and everything from github. If you use vscode you just need to install the git extension and it'll work with github with no extra steps. Gonna add turing/hopper instructions once I set mine up as well...
+
+## Other Git resources
+
+The free git book is in my opinion the best for simple examples. It has literally everything in it. Here's the whole thing https://git-scm.com/book/en/v2
+
+Following are some useful pages:
+
+1. Generating your SSH key: 	https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key
+2. Git first time set-up:	https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
+3. How to access repos:		https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository
+4. Customizing git:		https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration
+5. VSCode Git info:		https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Visual-Studio-Code
+6. Creating branches 
+   for your work:		https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Branching-and-Merging
+7. Deleting your commits:	https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History
+
