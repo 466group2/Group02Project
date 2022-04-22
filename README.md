@@ -8,8 +8,11 @@ In order to get this to work make sure you are checking the Blackboard group dis
 If anything is a pressing issue keep in mind that the Blackboard Group has the ability to e-mail each other or the whole group at once.
 
 
+
+
+
 ## Installing Git on your local machine(Windows):
- - Install git bash from the git website (if it suggests git gui with during the "Select Components" wundows, you can uncheck that)
+ - Install git bash from the git website (if it suggests git gui with during the "Select Components" windows, you can uncheck that)
  - if you need a video this one is pretty straightforward for windows https://www.youtube.com/watch?v=qdwWe9COT9k (actual useful bit starts at 2:50)
  - if you use vscode you can change it to the default editor for git now. install with the defaults for the rest if you have no preference for them.
  - make sure git credential manager is enabled
