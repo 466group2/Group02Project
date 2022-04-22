@@ -22,7 +22,7 @@ If anything is a pressing issue keep in mind that the Blackboard Group has the a
 
 check the git config file in your user folder so that it looks something like this:
 
-	-------------------------------------------------------------------------
+```
 [user]
 	name = YOUR_GITHUB_USERNAME_GOES_HERE
 	email = YOUR_GITHUB_EMAIL_GOES_HERE
@@ -40,8 +40,7 @@ check the git config file in your user folder so that it looks something like th
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
-
-	---------------------------------------------------------------------------
+```
 
 Adding your git SSH key
  - If you haven't created and SSH key already, start up your git bash
@@ -61,7 +60,7 @@ Making your pc auto log in
  - if you don't see a .bashrc create one now by opening a git bash in your user folder (right click > git bash here) and running touch .bashrc
  - copy the following into the .bashrc file:
 
-	-----------------------------------------------------------------------------
+```
 env=~/.ssh/agent.env
 
 agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
@@ -83,7 +82,6 @@ elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
 fi
 
 unset env
+```
 
-	------------------------------------------------------------------------------
-
-	Now whenever you run a git bash you should be able to commit, pull and everything from github. If you use vscode you just need to install the git extension and it'll work with github with no extra steps. Gonna add turing/hopper instructions once I set mine up as well...
+Now whenever you run a git bash you should be able to commit, pull and everything from github. If you use vscode you just need to install the git extension and it'll work with github with no extra steps. Gonna add turing/hopper instructions once I set mine up as well...
