@@ -19,9 +19,10 @@ If anything is a pressing issue keep in mind that the Blackboard Group has the a
  - once git bash is installed just right click somewhere on your desktop and you should be able to run a git bash!
  - create your gitconfig file by running (replace the stuff in quotes with your GitHub username and github email for the second command)
 
-	$ git config --global user.name "John Doe"
-	$ git config --global user.email johndoe@example.com
-
+```
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+```
 
 check the git config file in your user folder so that it looks something like this:
 
