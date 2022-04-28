@@ -5,32 +5,6 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 include '../lib/db.php';
 include '../lib/functions.php';
-
-    if(isset($_POST["armor"]))  
-    {  
-        header("location:armor.php"); 
-    }
-
-    if(isset($_POST["food"]))  
-    {  
-        header("location:food.php"); 
-    }
-
-    if(isset($_POST["meds"]))  
-    {  
-        header("location:meds.php"); 
-    }
-
-    if(isset($_POST["cart"]))  
-    {  
-        header("location:cart.php"); 
-    }
-
-    if(isset($_POST["orders"]))  
-    {  
-        header("location:orders.php"); 
-    }
-
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,14 +86,18 @@ include '../lib/functions.php';
 <body>
     <h1>CSCI 466 Group Project</h1>    
     <h2>Welcome to The Norvinsk Region</h2>
-    <form method="POST">     
-        <button class="button button1" name="armor">Armor</button>
-        <button class="button button2" name="food">Food</button>
-        <button class="button button3" name="meds">Medicine</button> 
-        <br>
-        <button class="button button4" name="cart">Cart</button>
-        <button class="button button5" name="orders">Order History</button>
-    </form>
+    
+<button class="button button1">Armor</button>
+<button class="button button2">Headwear</button>
+<button class="button button3">Medicine</button> 
+<br>
+<button class="button button4">Cart</button>
+<button class="button button5">Order History</button>
+
+   
+
+
+
 
 </body>
 </html>
