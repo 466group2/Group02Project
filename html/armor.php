@@ -5,7 +5,17 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 include '../lib/db.php';
 include '../lib/functions.php';
-?><!DOCTYPE html>
+if(isset($_POST["cart"]))
+{
+    header("location:cart.php");
+}
+if(isset($_POST["home"]))
+{
+    header("location:home.php");
+}
+
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,6 +52,20 @@ include '../lib/functions.php';
             width:200px;
             height:200px;
         }
+        .cart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 25px;
+            margin: 20px 10px;
+        }
+        .home{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 25px;
+            margin: 20px 10px;
+        }
     </style>
 </head>
 
@@ -54,10 +78,21 @@ include '../lib/functions.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Armors</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <h1>Armors</h1>
     <h2>Keeping yourself lead-free</h2>
+    <form method="POST">
+        <button class="button cart" name="cart">Shopping Cart 
+            <i class="fa fa-shopping-cart"></i>
+        </button>
+    </form>
+    <form method="POST">
+        <button class="button home" name="home">Home 
+            <i class="fa fa-home"></i>
+        </button>
+    </form>
 <?php
 
 $sql = <<<SQL
