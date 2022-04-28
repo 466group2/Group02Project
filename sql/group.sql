@@ -14,14 +14,19 @@ DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Payment;
 DROP TABLE IF EXISTS ShoppingCart;
+DROP TABLE IF EXISTS Foods, Meds, Armors; 
 DROP TABLE IF EXISTS Products;
 
-CREATE TABLE Products(
-    PartNum INT PRIMARY KEY AUTO_INCREMENT,         -- Primary Key
-    Name VARCHAR(127),                              -- Name of Product
-    Description VARCHAR(127),                       -- Description of Product
-    Price FLOAT(7),                                 -- Price of Product
-    QTYAvailable INT(100)                           -- Available quantity
+
+CREATE TABLE Products (
+    id INT AUTO_INCREMENT PRIMARY KEY,              -- Primary Key
+    name VARCHAR(197) NOT NULL,                     -- Name of Product
+    tagline VARCHAR(255) NOT NULL,                  -- Product tagline 
+    description TEXT NOT NULL,                      -- Description of Product
+    image VARCHAR(255) NOT NULL,                    -- Image link
+    price DOUBLE(9,2) DEFAULT 0.00,                 -- Price of Product
+    qty INT DEFAULT 0,                              -- Available quantity
+    type VARCHAR(255)                               -- Product type (armor, food, medicine)
 );
 
 CREATE TABLE ShoppingCart(
@@ -74,23 +79,44 @@ CREATE TABLE ViewOrder(
 );
 
 CREATE TABLE Generates(
-    PartNum INT,
+    product_id INT,
     CartID INT,
     OrderID INT,
     PaymentID INT,
-    PRIMARY KEY (PartNum, CartID, OrderID, PaymentID),          -- Primrary Key
-    FOREIGN KEY (PartNum) REFERENCES Products(PartNum),
+    PRIMARY KEY (product_id, CartID, OrderID, PaymentID),          -- Primrary Key
+    FOREIGN KEY (product_id) REFERENCES Products(id),
     FOREIGN KEY (CartID) REFERENCES ShoppingCart(CartID),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID)
 );
 
 CREATE TABLE Added(
-    PartNum INT,
+    product_id INT,
     CartID INT,
     UserID INT,
-    PRIMARY KEY (PartNum, CartID),                              -- Primary KEy
-    FOREIGN KEY (PartNum) REFERENCES Products(PartNum),
+    PRIMARY KEY (product_id, CartID),                              -- Primary KEy
+    FOREIGN KEY (product_id) REFERENCES Products(id),
     FOREIGN KEY (CartID) REFERENCES ShoppingCart(CartID),
     FOREIGN KEY (UserID) REFERENCES User(UserID)                -- Foreign Key
+);
+
+CREATE TABLE Armors (   
+  item_id INT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  tier INT DEFAULT 1,
+  FOREIGN KEY (item_id) REFERENCES Products(id)
+);
+
+CREATE TABLE Meds (
+  item_id INT PRIMARY KEY,
+  type VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  FOREIGN KEY (item_id) REFERENCES Products(id)
+);
+
+CREATE TABLE Foods (
+  item_id INT PRIMARY KEY,
+  type VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  FOREIGN KEY (item_id) REFERENCES Products(id)
 );

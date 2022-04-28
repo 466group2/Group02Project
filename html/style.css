@@ -5,8 +5,8 @@ body {
     color:lightgrey;
     background-color: #222222;
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: 10%;
-    margin-right: 10%;
+    max-width: 750px;
+    margin: auto;
 }
 th {
     color:antiquewhite;
@@ -29,16 +29,5 @@ p {
     margin: 5px;
   }
 
-  /* Three image containers (use 25% for four, and 50% for two, etc) */
-.column {
-    float: left;
-    width: 25%;
-    padding: 5px;
-  }
-  
-  /* Clear floats after image containers */
-  .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
+
+ 
