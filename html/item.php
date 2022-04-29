@@ -5,9 +5,17 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 include '../lib/db.php';
 include '../lib/functions.php';
+if(isset($_POST["cart"]))
+{
+    header("location:cart.php");
+}
+if(isset($_POST["home"]))
+{
+    header("location:home.php");
+}
+
 ?><!DOCTYPE html>
 <html lang="en">
-
 <?php   
 $var = $_GET["id"];
 $sql = <<<SQL
@@ -47,11 +55,12 @@ switch($rows[0]['type']){
 
 ?>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <style>   
         body {
@@ -83,42 +92,35 @@ switch($rows[0]['type']){
             height:auto;
             max-width: 1000px;
         }
-        .button {
-        background-color: #4CAF50; /* Green */
-        border: none;
-        color: white;
-        padding: 4px 16px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 25px;
-        margin: 0;
-        transition-duration: 0.4s;
-        cursor: pointer;
+        .cart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 25px;
+            margin: 20px 10px;
         }
-        .button1 {
-        background-color: grey; 
-        color: black; 
-        border: 2px solid #4CAF50;
+        .home{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 25px;
+            margin: 20px 10px;
         }
-        .button1:hover {
-        background-color: #4CAF50;
-        color: white;
-        }
+       
     </style>
 </head>
 <body>
-<!---  ARRAY DISPLAY FOR DEBUG
-        <h2>GET</h2>
-            <pre>
-        <?php print_r($_GET); ?>
-            </pre>
+<form method="POST">
+        <button class="button cart" name="cart">Shopping Cart 
+            <i class="fa fa-shopping-cart"></i>
+        </button>
+    </form>
+    <form method="POST">
+        <button class="button home" name="home">Home 
+            <i class="fa fa-home"></i>
+        </button>
+    </form>
 
-            <h2>POST</h2>
-            <pre>
-        <?php print_r($_POST); ?>
-            </pre>
- ARRAY DISPLAY FOR DEBUG--->
 <?php
 $var = $_GET["id"];
 $sql = <<<SQL
@@ -172,15 +174,7 @@ if (!empty($rows)) {
             HTML; 
         }
         echo "    </div>\n";
-    
 ?>
-<?php if(isset($_POST["home"]))  
-    {  
-        header("location:home.php"); 
-    }?>
-    <form method="POST">    
-    <button class="button button1" name="home">Back to home</button> 
-    </form>
 <pre>
         <?php print_r($rows[0]); ?>
             </pre>
