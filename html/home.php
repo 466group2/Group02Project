@@ -41,6 +41,16 @@ include '../lib/functions.php';
     <link rel="stylesheet" href="style.css">
 
     <style>
+    body {
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("img/labs1.webp");
+    max-width: 1000px !important;
+    margin: auto !important;
+    }
     .button {
     background-color: #4CAF50; /* Green */
     border: none;
@@ -56,7 +66,7 @@ include '../lib/functions.php';
     }
 
     .button1 {
-    background-color: grey; 
+    background-color: lightgrey; 
     color: black; 
     border: 2px solid #4CAF50;
     }
@@ -67,7 +77,7 @@ include '../lib/functions.php';
     }
 
     .button2 {
-    background-color: white; 
+    background-color: lightgrey; 
     color: black; 
     border: 2px solid #008CBA;
     }
@@ -78,7 +88,7 @@ include '../lib/functions.php';
     }
 
     .button3 {
-    background-color: white; 
+    background-color: lightgrey; 
     color: black; 
     border: 2px solid #f44336;
     }
@@ -89,17 +99,20 @@ include '../lib/functions.php';
     }
 
     .button4 {
-    background-color: white;
+    background-color: lightgrey;
     color: black;
     border: 2px solid #e7e7e7;
     }
 
-    .button4:hover {background-color: #e7e7e7;}
+    .button4:hover {
+    background-color: #555555;
+    color: white;
+    }
 
     .button5 {
-    background-color: white;
+    background-color: lightgrey;
     color: black;
-    border: 2px solid #555555;
+    border: 2px solid #e7e7e7;
     }
 
     .button5:hover {

@@ -32,7 +32,7 @@ if(isset($_POST["home"]))
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url("img/labs1.webp");
+        background-image: url("img/interchange.jpg");
        
         }
         .row { background-color: rgba(0, 0, 0, 0.5); }
