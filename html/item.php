@@ -31,16 +31,19 @@ try {
 } catch (PDOException $e){
     echo "    <p>Could not query medicine items from database. PDO Exception: {$e->getMessage()}</p>\n";
 }
-$row = $rows[0];
-if($row['type'] == 'Armor' ){
+
+$image = "img/labs1.webp";
+switch($rows[0]['type']){
+    case 'Armor': 
+        $image = "img/interchange.jpg";
+        break;
+    case 'Medicine': 
         $image = "img/labs1.webp";
-        }    
-if($row['type'] == 'Medicine' ){
-        $image = "img/labs1.webp";
-        }
-if($row['type'] == 'Food' ){ 
-        $image = "img/labs1.webp";
-};
+        break;
+    case 'Food': 
+        $image = "img/goshan.webp";
+        break;
+}
 
 ?>
 <head>
