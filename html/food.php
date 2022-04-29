@@ -32,14 +32,15 @@ if(isset($_POST["home"]))
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url("img/labs1.webp");
-       
+        background-image: url("img/goshan.webp");
+        max-width: 1200px !important;
+        margin: auto !important;
         }
         .row { background-color: rgba(0, 0, 0, 0.5); }
         /* Three image containers (use 25% for four, and 50% for two, etc) *****/
         .column {
             float: left;
-            width: 33%;
+            width: 20%;
             padding:0px;
             text-align: center;
         }
@@ -73,6 +74,7 @@ if(isset($_POST["home"]))
 
 </head>
 <body>
+
     <h1>Provisions</h1>
     <h2>The finest cuisine an abandoned mall has to offer</h2>
     <form method="POST">
@@ -85,6 +87,7 @@ if(isset($_POST["home"]))
             <i class="fa fa-home"></i>
         </button>
     </form>
+    
 <?php
 
 $sql = <<<SQL
