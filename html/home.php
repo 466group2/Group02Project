@@ -61,7 +61,7 @@ include '../lib/functions.php';
     display: inline-block;
     font-size: 25px;
     margin: 40px 30px;
-    transition-duration: 0.4s;
+    transition-duration: 0.3s;
     cursor: pointer;
     }
 
