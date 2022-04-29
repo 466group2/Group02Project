@@ -21,7 +21,7 @@ if(isset($_POST["home"]))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Armors</title>
+    <title>Meds</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
@@ -50,9 +50,9 @@ if(isset($_POST["home"]))
             display: table;
         }
         img{
-            width:auto;
+            width:200px;
             height:auto;
-            max-width:200px;
+            
         }
         .cart {
             position: absolute;
@@ -68,12 +68,13 @@ if(isset($_POST["home"]))
             font-size: 25px;
             margin: 20px 10px;
         }
+      
     </style>
 
 </head>
 <body>
-    <h1>Armors</h1>
-    <h2>Keeping yourself lead-free</h2>
+    <h1>Medicine</h1>
+    <h2>Things to plug your holes and keep you alive</h2>
     <form method="POST">
         <button class="button cart" name="cart">Shopping Cart 
             <i class="fa fa-shopping-cart"></i>
@@ -107,20 +108,19 @@ try {
     echo "    <p>Could not query armor items from database. PDO Exception: {$e->getMessage()}</p>\n";
 }
 if (!empty($rows)) {
-    $tiers = [
+    $types = [
         'Painkiller',
         'Wound treatment',
         'Surgical treatment'
-        
     ];
-    foreach($tiers as $tier){
+    foreach($types as $type){
         echo <<<HTML
-            <h3>$tier</h3>
+            <h3>$type</h3>
             <div class="row">\n
         HTML;
-        // only armors of current tier (2,3,4...)
-        $armors = array_filter($rows, function ($row) use ($tier) {
-            return $row['type'] == $tier;
+        // only armors of current type (2,3,4...)
+        $armors = array_filter($rows, function ($row) use ($type) {
+            return $row['type'] == $type;
         });
         foreach($armors as $armor) {
            echo <<<HTML
@@ -129,11 +129,11 @@ if (!empty($rows)) {
                            <img src="{$armor['image']}" class="item" /><br />
                            {$armor['name']}
                        </a> <br>
-                        <form action="" method="POST">
+                        <form action="" name="addtocart" method="POST">
                         <label for=""></label>
                         &nbsp;<label for="quantity">QTY:</label>
                         <input type="number" min="0" id="quantity" name="QTY">
-                        <input type="submit" value="Add to cart">
+                        <input type="submit"  value="Add to cart">
                         </form>
                       <!--- <p>{$armor['tagline']}</p> --->
                    </div>\n
