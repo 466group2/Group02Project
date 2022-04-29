@@ -3,15 +3,18 @@ declare(strict_types = 1);
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
+?>
+
+<?php
 include '../lib/db.php';
 include '../lib/functions.php';
-
+// Go home if home button is clicked
 if(isset($_POST["home"]))
 {
     header("location:home.php");
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,13 +47,15 @@ if(isset($_POST["home"]))
     </style>
 </head>
 <body>
-    <h1>Checkout</h1>    
-    <h2>Please review your final order request:</h2>
     <form method="POST">
         <button class="button home" name="home">Home 
             <i class="fa fa-home"></i>
         </button>
     </form>
+
+    <h1>Checkout</h1>    
+    <h2>Please review your final order request:</h2>
+
 <?php
 
 //Connect to mariadb

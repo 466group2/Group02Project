@@ -3,14 +3,18 @@ declare(strict_types = 1);
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
+?>
 
+<?php
 include '../lib/db.php';
 include '../lib/functions.php';
 
+// Go to checkout if checkout button is clicked
 if(isset($_POST["checkout"]))
 {
     header("location:checkout.php");
 }
+// Got home if home button if clicked
 if(isset($_POST["home"]))
 {
     header("location:home.php");
@@ -53,16 +57,15 @@ if(isset($_POST["home"]))
     <h1>Shopping Cart</h1>    
     <h2>Your cart contains:</h2>
     <form method="POST">
-        <button class="button home" name="home">Home 
-            <i class="fa fa-home"></i>
+        <button class="button home" name="home">
+            Home <i class="fa fa-home"></i>
         </button>
-    </form>
-    <form method="POST">
-        <button class="button buy" name="checkout">Checkout 
-            <i class="fa fa-money"></i>
-    </form>
-    <form method="POST">
-        <button class="button clear" name="clear button">Clear Cart
+        <button class="button buy" name="checkout">
+            Checkout <i class="fa fa-money"></i>
+        </button>
+        <button class="button clear" name="clear button">
+            Clear Cart <i class="fa fa-trash"></i>
+        </button>
     </form>
 <?php
 
