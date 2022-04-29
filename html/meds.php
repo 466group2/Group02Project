@@ -50,8 +50,9 @@ if(isset($_POST["home"]))
             display: table;
         }
         img{
-            width:200px;
-            height:200px;
+            width:auto;
+            height:auto;
+            max-width:200px;
         }
         .cart {
             position: absolute;
@@ -86,9 +87,9 @@ if(isset($_POST["home"]))
 <?php
 
 $sql = <<<SQL
-  SELECT item_id, tier, Products.name, tagline, image
-  FROM Armors
-  INNER JOIN Products ON Products.id = Armors.item_id;
+  SELECT item_id, Meds.type, Products.name, tagline, image
+  FROM Meds
+  INNER JOIN Products ON Products.id = Meds.item_id;
 SQL;
 try {
     $statement = $pdo->query($sql);
@@ -107,19 +108,19 @@ try {
 }
 if (!empty($rows)) {
     $tiers = [
-        2 => 'Light',
-        3 => 'Medium',
-        4 => 'Heavy',
-        5 => 'Heavy'
+        'Painkiller',
+        'Wound treatment',
+        'Surgical treatment'
+        
     ];
-    foreach($tiers as $tier => $description){
+    foreach($tiers as $tier){
         echo <<<HTML
-            <h3>$description Armors - Tier $tier</h3>
+            <h3>$tier</h3>
             <div class="row">\n
         HTML;
         // only armors of current tier (2,3,4...)
         $armors = array_filter($rows, function ($row) use ($tier) {
-            return $row['tier'] == $tier;
+            return $row['type'] == $tier;
         });
         foreach($armors as $armor) {
            echo <<<HTML
