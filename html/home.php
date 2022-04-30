@@ -31,6 +31,11 @@ include '../lib/functions.php';
         header("location:orders.php"); 
     }
 
+    if(isset($_POST["employee"]))
+    {
+        header("location:pending.php");
+    }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +44,7 @@ include '../lib/functions.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store home</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
     body {
@@ -119,6 +125,15 @@ include '../lib/functions.php';
     background-color: #555555;
     color: white;
     }
+
+    .employee {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 25px;
+        margin: 20px 10px;
+    }
+
 </style>
 
 </head>
@@ -132,6 +147,9 @@ include '../lib/functions.php';
         <br>
         <button class="button button4" name="cart">Cart</button>
         <button class="button button5" name="orders">Order History</button>
+        <button class="button employee" name="employee">
+            Employee Login <i class="fa fa-key"></i>
+        </button>
     </form>
 
 </body>
