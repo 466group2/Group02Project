@@ -37,12 +37,29 @@ if(isset($_POST["home"]))
             font-size: 25px;
             margin: 20px 10px;
         }
-        div {
+
+        input[type=text]{
+            width: 50%;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        label{
+            display: block;
             margin-bottom: 10px;
         }
-        label{
-            display: inline-block;
-            width: 100px;
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 30px;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin: 0 -16px;
         }
     </style>
 </head>
@@ -66,13 +83,45 @@ try {
 }
 catch(PDOexception $error){  
     die('    <p> Connection to database failed: ' . $error->getMessage() . "</p>\n </body></html>"); 
-} ?>
+} 
+?>
 
 <h3>Payment</h3>
+<h4>Accepted Cards</h4>
+<div class="icon-container">
+    <i class="fa fa-cc-visa" style="color:white;"></i>
+    <i class="fa fa-cc-mastercard" style="color:white;"></i>
+    <i class="fa fa-cc-amex" style="color:white;"></i>
+    <i class="fa fa-cc-discover" style="color:white;"></i>
+</div>
+
 <form method="POST">
     <div>
-        <label>Credit Card:</label>
-        <input type="text" id="CREDIT_CARD"/>
+        <label>Credit Card</label>
+        <input type="text" id="CREDIT_CARD"
+        placeholder="1234-1234-1234-1234">
+    </div>
+</form>
+
+<h3>Billing Address</h3>
+<form method="POST">
+    <div>
+        <label><i class="fa fa-user"></i>
+            Full Name</label>
+        <input type="text" id="FULL_NAME"
+        placeholder="Homer J. Simpsons">
+        <label><i class="fa fa-address-card-o"></i>
+            Address</label>
+        <input type="text" id="STREET_NAME"
+        placeholder="742 Evergreen Terrace, Springfield">
+        <label><i class="fa fa-envelope"></i>
+            Email Address</label>
+        <input type="text" id="EMIAL"
+        placeholder="chunkylover53@aol.com">
+        <label><i class="fa fa-phone"></i>
+            Phone Number</label>
+        <input type="text" id="PHONE"
+        placeholder="(939)-555-0113">
     </div>
 </form>
 
@@ -80,19 +129,8 @@ catch(PDOexception $error){
 <form method="POST">
     <div>
         <label>Street:</label>
-        <input type="text" id="STREET_NAME"/>
-    </div>
-    <div>
-        <label>City:</label>
-        <input type="text" id="CITY"/>
-    </div>
-    <div>
-        <label>State:</label>
-        <input type="text" id="STATE"/>
-    </div>
-    <div>
-        <label>ZIP Code:</label>
-        <input type="text" id="ZIP"/>
+        <input type="text" id="STREET_NAME"
+        placeholder="123 Main Street">
     </div>
     <button class="button submit" name="submit">
         Submit <i class="fa fa-check"></i>
