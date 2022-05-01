@@ -144,11 +144,17 @@
             right: 10px;
             font-size: 20px;
         }
+        .employee:hover {
+            background-color: #FFFFFF;
+            color: green;
+        }
         </style>
     </head>
     <body>
         <h1>CSCI 466 Group Project</h1>    
         <h2>Welcome to The Norvinsk Region</h2>
+        <br></br>
+        <h2>Items for sale</h3>
         <form method="POST">     
             <button class="button button1" name="armor">
                 Armor <i class="fa fa-shield"></i>
@@ -160,6 +166,7 @@
                 Medicine <i class="fa fa-medkit"></i>
             </button> 
             <br>
+            <h2>Check your oders</h3>
             <button class="button button4" name="cart">
                 Cart <i class="fa fa-shopping-cart"></i></button>
             <button class="button button5" name="orders">
