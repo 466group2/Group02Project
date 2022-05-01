@@ -47,23 +47,30 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <style>
-        input[type=password]{
-            width:30%;
-            padding: 14px 14px;
-            margin: 8px 0;
-            display: inline-block;
-        }
-        .home{
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 25px;
-            margin: 20px 10px;
-        }
-        .login{
-            position: relative;
-            font-size: 25px;
-            margin: 20px 10px;
+            body{
+                height: 100%;
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url("img/romanesenutdomus.png");
+            }
+            input[type=password]{
+                width:30%;
+                padding: 14px 14px;
+                margin: 8px 0;
+                display: inline-block;
+            }
+            .home{
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                font-size: 25px;
+                margin: 20px 10px;
+            }
+            .login{
+                position: relative;
+                font-size: 25px;
+                margin: 20px 10px;
         }
         </style>
     </head>
