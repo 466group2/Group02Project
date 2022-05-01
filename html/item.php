@@ -160,7 +160,7 @@
                     <h3>$ {$row['price']}<h3>
                     <form action="cart.php" method="POST">
                         &nbsp;<label for="quantity">QTY:</label>
-                        <input type="number" min="1" id="{$row['qty']}" name="QTY">
+                        <input type="number" min="1" max="{$row['qty']}" name="QTY">
                         <input type="hidden" value="{$row['id']}" name ='ID'>
                         <input type="submit" value="Add to cart">
                     </form>
