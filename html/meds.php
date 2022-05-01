@@ -129,13 +129,13 @@
                         <img src="{$med['image']}" class="item" /><br />
                         {$med['name']}
                     </a> <br>
-                        <form action="" name="addtocart" method="POST">
+                    <!---    <form action="" name="addtocart" method="POST">
                             <label for=""></label>
                             &nbsp;<label for="quantity">QTY:</label>
                             <input type="number" min="0" id="quantity" name="QTY">
                             <input type="submit"  value="Add to cart">
                         </form>
-                        <!--- <p>{$med['tagline']}</p> --->
+                         <p>{$med['tagline']}</p> --->
                     </div>\n
                     HTML;
                     }

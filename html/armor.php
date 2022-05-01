@@ -133,13 +133,13 @@
                                     <img src="{$armor['image']}" class="item" /><br />
                                     {$armor['name']}
                                 </a> <br>
-                                    <form action="" method="POST">
+                                <!---    <form action="" method="POST">
                                     <label for=""></label>
                                     &nbsp;<label for="quantity">QTY:</label>
                                     <input type="number" min="0" id="quantity" name="QTY">
                                     <input type="submit" value="Add to cart">
                                     </form>
-                                <!--- <p>{$armor['tagline']}</p> --->
+                                 <p>{$armor['tagline']}</p> --->
                             </div>\n
                         HTML;
                     }
