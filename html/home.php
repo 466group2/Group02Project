@@ -1,6 +1,6 @@
 <?php
 /**
- * Purpose: Php page for employee to login
+ * Purpose: Homepage
  * CSCI 466 - 1
  * Group 02
  * Spring 2022
@@ -150,12 +150,21 @@
         <h1>CSCI 466 Group Project</h1>    
         <h2>Welcome to The Norvinsk Region</h2>
         <form method="POST">     
-            <button class="button button1" name="armor">Armor</button>
-            <button class="button button2" name="food">Food</button>
-            <button class="button button3" name="meds">Medicine</button> 
+            <button class="button button1" name="armor">
+                Armor <i class="fa fa-shield"></i>
+            </button>
+            <button class="button button2" name="food">
+                Food <i class="fa fa-apple fa-flip-horizontal"></i>
+            </button>
+            <button class="button button3" name="meds">
+                Medicine <i class="fa fa-medkit"></i>
+            </button> 
             <br>
-            <button class="button button4" name="cart">Cart</button>
-            <button class="button button5" name="orders">Order History</button>
+            <button class="button button4" name="cart">
+                Cart <i class="fa fa-shopping-cart"></i></button>
+            <button class="button button5" name="orders">
+                Order History <i class="fa fa-history"></i>
+            </button>
             <button class="button employee" name="employee">
                 Employee Login <i class="fa fa-key"></i>
             </button>
