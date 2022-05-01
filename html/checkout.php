@@ -1,4 +1,15 @@
 <?php
+/**
+ * Purpose: Homepage
+ * CSCI 466 - 1
+ * Group 02
+ * Spring 2022
+ * Group Members:
+ * Moses Mang
+ * Maricarmen Paniagua
+ * Alexander Peterson
+ * Maria Sofia
+ */
     //php block 1
     declare(strict_types = 1);
     ini_set('display_errors', '1');
@@ -85,6 +96,7 @@
                 <label>Credit Card</label>
                 <input type="text" id="CREDIT_CARD"
                 placeholder="1234-1234-1234-1234">
+                <label>
             </div>
         </form>
         <h3>Billing Address</h3>
@@ -96,8 +108,8 @@
                 placeholder="Homer J. Simpsons">
                 <label><i class="fa fa-address-card-o"></i>
                     Address</label>
-                <input type="text" id="STREET_NAME"
-                placeholder="742 Evergreen Terrace, Springfield">
+                <input type="text" id="BILL_ADDR"
+                placeholder="744 Evergreen Terrace, Springfield">
                 <label><i class="fa fa-envelope"></i>
                     Email Address</label>
                 <input type="text" id="EMIAL"
@@ -108,17 +120,30 @@
                 placeholder="(939)-555-0113">
             </div>
         </form>
+
+        <br></br>
+        <form method="POST">
+            <input type="checkbox" id="ship" name="ship">
+            Check if shipping address is same as
+                billing address.
+        </form>
+
         <h3>Shipping Address</h3>
         <form method="POST">
             <div>
-                <label>Street:</label>
-                <input type="text" id="STREET_NAME"
-                placeholder="123 Main Street">
+                <label><i class="fa fa-address-card-o"></i>
+                    Address</label>
+                <input type="text" id="SHIP_ADDR"
+                placeholder="742 Evergreen Terrance, Springfield">
             </div>
             <button class="button submit" name="submit">
                 Submit <i class="fa fa-check"></i>
             </button>
-            
         </form>
+
+        <?php
+        // If shipping and billing address are the same
+            if(isset($_POST["ship"]))
+        ?>
     </body>
 </html>
