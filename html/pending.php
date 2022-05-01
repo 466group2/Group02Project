@@ -6,7 +6,11 @@ error_reporting(E_ALL);
 include '../lib/db.php';
 include '../lib/functions.php';
 session_start();
-
+// Go home if home button is clicked
+if(isset($_POST["home"]))
+{
+    header("location:home.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
