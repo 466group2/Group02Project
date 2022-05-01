@@ -1,4 +1,15 @@
 <?php
+/**
+ * Purpose: Php page for employee to login
+ * CSCI 466 - 1
+ * Group 02
+ * Spring 2022
+ * Group Members:
+ * Moses Mang
+ * Maricarmen Paniagua
+ * Alexander Peterson
+ * Maria Sofia
+ */
     declare(strict_types = 1);
     ini_set('display_errors', '1');
     ini_set('display_startup_errors', '1');
@@ -34,7 +45,7 @@
 
     if(isset($_POST["employee"]))
     {
-        header("location:pending.php");
+        header("location:login.php");
     }
 ?>
 <!DOCTYPE html>
@@ -131,8 +142,7 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            font-size: 25px;
-            margin: 20px 10px;
+            font-size: 20px;
         }
         </style>
     </head>
