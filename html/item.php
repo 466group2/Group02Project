@@ -158,10 +158,10 @@
                     <div class="column">
                     <h3>{$row['description']}</h3>\n
                     <h3>$ {$row['price']}<h3>
-                    <form action="" method="POST">
-                        <label for=""></label>
+                    <form action="cart.php" method="POST">
                         &nbsp;<label for="quantity">QTY:</label>
-                        <input type="number" min="0" id="quantity" name="QTY">
+                        <input type="number" min="1" id="{$row['qty']}" name="QTY">
+                        <input type="hidden" value="{$row['id']}" name ='ID'>
                         <input type="submit" value="Add to cart">
                     </form>
                     </div>\n

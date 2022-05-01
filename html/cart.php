@@ -71,3 +71,12 @@
         </form>
     </body>
 </html>
+<?php
+// this php block receives an item qty/id from item page
+    if ( isset($_POST['ID'], $_POST['QTY']) ) {
+        $id = $_POST['ID'];
+        $qty = $_POST['QTY'];
+
+        echo "<p>{$id}, {$qty}</p>";
+    }
+?>
