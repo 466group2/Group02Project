@@ -25,7 +25,22 @@
     }
     //connect to mariadb
     $pdo = connectdb();
+    session_name('cart');
+    session_start();
+
+    if(isset($_POST["submit"]))
+    {
+        echo "submit button pushed";
+    }
+    
+    
 ?>
+  <h4> session: </h4>
+  <pre> <?php print_r($_SESSION); ?> </pre> 
+  <h4> get: </h4>
+  <pre> <?php print_r($_GET); ?> </pre> 
+  <h4> post: </h4>
+  <pre> <?php print_r($_POST); ?> </pre> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +98,6 @@
         </form>
         <h1>Checkout</h1>    
         <h2>Please review your final order request:</h2>
-        <h3>Payment</h3>
         <h4>Accepted Cards</h4>
         <div class="icon-container">
             <i class="fa fa-cc-visa" style="color:white;"></i>
