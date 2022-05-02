@@ -172,14 +172,5 @@
             }
             echo "    </div>\n";
         ?>
-        <pre>
-        <?php
-        // Session for shopping cart
-        $_SESSION['cart'][] = array(
-            'item_id' => $_POST['ID'],
-            'quanity' => $_POST['QTY']
-        )
-        ?>
-        </pre>
     </body>
 </html>

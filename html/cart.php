@@ -21,11 +21,12 @@
     //connect to mariadb
     $pdo = connectdb();
     // start session
+    session_name('cart');
     session_start();
 
     if(isset($_POST["clear"]))
     {
-        session_destroy();
+        unset($_SESSION['cart']);
     }
 ?>
 
@@ -77,67 +78,37 @@
             </button>
         </form>
     
-<?php
-// this php block receives an item qty/id from item page
-    if ( isset($_POST['ID'], $_POST['QTY']) ) {
-        $id = $_POST['ID'];
-        $qty = $_POST['QTY'];
-
-        echo "<p>{$id}, {$qty}</p>";
-    }
-    
-        //php block 2
-            $sql = <<<SQL
-            SELECT id,name,image,price,qty
-            FROM Products
-            WHERE id = $id
-            SQL;
-            try {
-                $statement = $pdo->query($sql);
-                if($statement) {
-                    $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    if($statement->rowCount() != 0) {
-                        // echo "    <p>Got rows!</p>\n<pre>\n";
-                    } else {
-                        echo "    <p>No rows!</p>\n";
+        <?php
+        // this php block receives an item qty/id from item page
+            if ( isset($_POST['ID'], $_POST['QTY']) ) {
+                $id = $_POST['ID'];
+                $qty = $_POST['QTY'];
+                
+                if($id && $qty > 0){
+                    if( isset($_SESSION['cart']) && is_array($_SESSION['cart']) ){
+                        if( array_key_exists($id, $_SESSION['cart']) ){
+                            $_SESSION['cart'][$id] += $qty;
+                        }
+                        else{
+                            $_SESSION['cart'][$id] = $qty;
+                        }
                     }
-                } else {
-                    echo "    <p>Could not query armor items from database for unknown reason.</p>\n";
+                    else
+                    {
+                        $_SESSION['cart'] = array($id=>$qty);
+                    }
                 }
-            } catch (PDOException $e){
-                echo "    <p>Could not query armor items from database. PDO Exception: {$e->getMessage()}</p>\n";
             }
-            if (!empty($rows)) {
-        
-                echo "<table border='1'>
-                <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>QTY</th>
-                <th>Price</th>
-                </tr>";
-
-                foreach($rows as $row)
+            if($_SESSION){
+                //testing out session
+                echo "<pre>";
+                foreach($_SESSION['cart'] as $idnum => $numof)
                 {
-                $img = $row['image'];
-                echo "<tr>";
-                echo "<td>" . "<img src=$img  width='100' height='100' >" . "</td>";
-                echo "<td>" . $row['name'] . "</td>";
-                echo "<td>" . $qty . "</td>";
-                echo "<td>" . $row['price'] . "</td>";
-                echo "</tr>";
+                    $item = getItem($idnum,$pdo);
+                    printCartItem($item,$numof);
                 }
-
-                echo "</table>";
-
-
+                echo "</pre>";
             }
-
-    // testing out session
-    foreach($_SESSION['cart'] as $shop){
-        print_r($shop); 
-        echo "<br>" ;
-    }
-    ?>
-</body>
+        ?>
+    </body>
 </html>
