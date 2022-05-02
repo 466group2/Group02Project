@@ -76,8 +76,7 @@
                 Clear Cart <i class="fa fa-trash"></i>
             </button>
         </form>
-    </body>
-</html>
+    
 <?php
 // this php block receives an item qty/id from item page
     if ( isset($_POST['ID'], $_POST['QTY']) ) {
@@ -86,9 +85,59 @@
 
         echo "<p>{$id}, {$qty}</p>";
     }
+    
+        //php block 2
+            $sql = <<<SQL
+            SELECT id,name,image,price,qty
+            FROM Products
+            WHERE id = $id
+            SQL;
+            try {
+                $statement = $pdo->query($sql);
+                if($statement) {
+                    $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    if($statement->rowCount() != 0) {
+                        // echo "    <p>Got rows!</p>\n<pre>\n";
+                    } else {
+                        echo "    <p>No rows!</p>\n";
+                    }
+                } else {
+                    echo "    <p>Could not query armor items from database for unknown reason.</p>\n";
+                }
+            } catch (PDOException $e){
+                echo "    <p>Could not query armor items from database. PDO Exception: {$e->getMessage()}</p>\n";
+            }
+            if (!empty($rows)) {
+        
+                echo "<table border='1'>
+                <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>QTY</th>
+                <th>Price</th>
+                </tr>";
+
+                foreach($rows as $row)
+                {
+                $img = $row['image'];
+                echo "<tr>";
+                echo "<td>" . "<img src=$img  width='100' height='100' >" . "</td>";
+                echo "<td>" . $row['name'] . "</td>";
+                echo "<td>" . $qty . "</td>";
+                echo "<td>" . $row['price'] . "</td>";
+                echo "</tr>";
+                }
+
+                echo "</table>";
+
+
+            }
 
     // testing out session
     foreach($_SESSION['cart'] as $shop){
-        print_r($shop);
+        print_r($shop); 
+        echo "<br>" ;
     }
-?>
+    ?>
+</body>
+</html>
