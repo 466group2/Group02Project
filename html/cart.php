@@ -20,6 +20,13 @@
     }
     //connect to mariadb
     $pdo = connectdb();
+    // start session
+    session_start();
+
+    if(isset($_POST["clear"]))
+    {
+        session_destroy();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +72,7 @@
             <button class="button buy" name="checkout">
                 Checkout <i class="fa fa-money"></i>
             </button>
-            <button class="button clear" name="clear button">
+            <button class="button clear" name="clear">
                 Clear Cart <i class="fa fa-trash"></i>
             </button>
         </form>
@@ -78,5 +85,10 @@
         $qty = $_POST['QTY'];
 
         echo "<p>{$id}, {$qty}</p>";
+    }
+
+    // testing out session
+    foreach($_SESSION['cart'] as $shop){
+        print_r($shop);
     }
 ?>

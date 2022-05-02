@@ -19,6 +19,8 @@
 
     //conect to mariadb
     $pdo = connectdb();
+    // start session
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -171,7 +173,13 @@
             echo "    </div>\n";
         ?>
         <pre>
-            <?php print_r($rows[0]); ?>
+        <?php
+        // Session for shopping cart
+        $_SESSION['cart'][] = array(
+            'item_id' => $_POST['ID'],
+            'quanity' => $_POST['QTY']
+        )
+        ?>
         </pre>
     </body>
 </html>
