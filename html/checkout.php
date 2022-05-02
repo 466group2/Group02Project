@@ -25,7 +25,22 @@
     }
     //connect to mariadb
     $pdo = connectdb();
+    session_name('cart');
+    session_start();
+
+    if(isset($_POST["submit"]))
+    {
+        echo "submit button pushed";
+    }
+    
+    
 ?>
+  <h4> session: </h4>
+  <pre> <?php print_r($_SESSION); ?> </pre> 
+  <h4> post: </h4>
+  <pre> <?php print_r($_POST); ?> </pre> 
+  <h4> get: </h4>
+  <pre> <?php print_r($_GET); ?> </pre> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,14 +91,13 @@
         </style>
     </head>
     <body>
-        <form method="POST">
+        <form method="POST"> <!--start form bracket-->
             <button class="button home" name="home">Home 
                 <i class="fa fa-home"></i>
             </button>
-        </form>
+     
         <h1>Checkout</h1>    
         <h2>Please review your final order request:</h2>
-        <h3>Payment</h3>
         <h4>Accepted Cards</h4>
         <div class="icon-container">
             <i class="fa fa-cc-visa" style="color:white;"></i>
@@ -91,55 +105,55 @@
             <i class="fa fa-cc-amex" style="color:white;"></i>
             <i class="fa fa-cc-discover" style="color:white;"></i>
         </div>
-        <form method="POST">
+        
             <div>
                 <label>Credit Card</label>
-                <input type="text" id="CREDIT_CARD"
+                <input type="text" id="CREDIT_CARD" name="credit_card"
                 placeholder="1234-1234-1234-1234">
                 <label>
             </div>
-        </form>
+      
         <h3>Billing Address</h3>
-        <form method="POST">
+    
             <div>
                 <label><i class="fa fa-user"></i>
                     Full Name</label>
-                <input type="text" id="FULL_NAME"
+                <input type="text" id="FULL_NAME" name="name"
                 placeholder="Homer J. Simpsons">
                 <label><i class="fa fa-address-card-o"></i>
                     Address</label>
-                <input type="text" id="BILL_ADDR"
+                <input type="text" id="BILL_ADDR"  name="billing_address"
                 placeholder="744 Evergreen Terrace, Springfield">
                 <label><i class="fa fa-envelope"></i>
                     Email Address</label>
-                <input type="text" id="EMIAL"
+                <input type="text" id="EMAIL" name="email"
                 placeholder="chunkylover53@aol.com">
                 <label><i class="fa fa-phone"></i>
                     Phone Number</label>
-                <input type="text" id="PHONE"
+                <input type="text" id="PHONE" name="phone"
                 placeholder="(939)-555-0113">
             </div>
-        </form>
+        
 
         <br></br>
-        <form method="POST">
-            <input type="checkbox" id="ship" name="ship">
+        
+            <input type="checkbox" id="ship" name="shipping_is_billing">
             Check if shipping address is same as
                 billing address.
-        </form>
+        
 
         <h3>Shipping Address</h3>
-        <form method="POST">
+        
             <div>
                 <label><i class="fa fa-address-card-o"></i>
                     Address</label>
-                <input type="text" id="SHIP_ADDR"
+                <input type="text" id="SHIP_ADDR" name="shipping_address"
                 placeholder="742 Evergreen Terrance, Springfield">
             </div>
-            <button class="button submit" name="submit">
+            <button class="button submit" name="submit_checkout" id="checkout">
                 Submit <i class="fa fa-check"></i>
             </button>
-        </form>
+        </form> <!--end form bracket-->
 
         <?php
         // If shipping and billing address are the same

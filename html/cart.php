@@ -101,13 +101,31 @@
             }
             if($_SESSION){
                 //testing out session
+                $total = 0;
                 echo "<pre>";
+                echo "<table border='1'>
+                <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>QTY</th>
+                <th>Price</th>
+                <th>Total</th>
+                </tr>";
                 foreach($_SESSION['cart'] as $idnum => $numof)
                 {
                     $item = getItem($idnum,$pdo);
-                    printCartItem($item,$numof);
+                    $total +=  printCartItem($item,$numof);
                 }
+
+                echo "<tr>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td>" . "SUBTOTAL:" . "</td>";
+                echo "<td>" . "$" . $total . "</td>";
+                echo "</tr>";
                 echo "</pre>";
+                echo "</table>";
             }
         ?>
     </body>

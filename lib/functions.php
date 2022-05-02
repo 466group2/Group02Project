@@ -42,25 +42,18 @@ function getItem($itemid, $pdo)
  * @param num The number of items in a cart
  */
 function printCartItem($itemarray, $num)
-{
-    echo "<table border='1'>
-        <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>QTY</th>
-        <th>Price</th>
-        </tr>";
-
+{   $subtotal = 0;
         foreach($itemarray as $info){
             $img = $info['image'];
             echo "<tr>";
-            echo "<td>" . "<img src=$img  width='100' height='100' >" . "</td>";
+            echo "<td>" . "<img src=$img  width='150' height='auto' >" . "</td>";
             echo "<td>" . $info['name'] . "</td>";
             echo "<td>" . $num . "</td>";
-            echo "<td>" . $info['price'] . "</td>";
-            echo "</tr>";
+            echo "<td>" . "$" . $info['price'] . "</td>";
+            echo "<td>" . "$" . $info['price'] * $num  . "</td>";
+            echo "</tr>"; 
         }
-    echo "</table>";
+        return $subtotal += $info['price'] * $num;
 }
 
 ?>

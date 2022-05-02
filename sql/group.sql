@@ -36,8 +36,8 @@ CREATE TABLE ShoppingCart(
 
 CREATE TABLE Payment(
     PaymentID INT PRIMARY KEY AUTO_INCREMENT,       -- Primary Key
-    CreditCardInfo INT (15),                        -- Credit Card #
-    PaymentAmount FLOAT(7)                          -- Payment Amout
+    CreditCardInfo INT (16),                        -- Credit Card #
+    PaymentAmount DOUBLE(9,2) DEFAULT 0.00,         -- Payment Amout
 );
 
 CREATE TABLE User(
@@ -46,7 +46,7 @@ CREATE TABLE User(
     Name VARCHAR(31),                               -- Name of user
     BillingAddress VARCHAR(255),                    -- Billing Address of User
     ShippingAddress VARCHAR(255),                   -- Shipping Address of User
-    Phone INT(10),                                  -- Phone number of User
+    Phone VARCHAR(14),                              -- Phone number of User
     Email VARCHAR(255)                              -- Email address of User
 );
 
