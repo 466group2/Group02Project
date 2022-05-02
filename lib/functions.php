@@ -1,11 +1,16 @@
 <?php 
 /*Alex Peterson Z1912480
-CSCI 466 Assignment 9 PHP with forms
-Due 4/8/22 11:59p
+CSCI 466 Group Project
+Due 5/4/22 11:59p
 library.php
 */
-//This function takes an id and reaches for the information of that item
-// it returns the info of that item as an array
+
+/**
+ * This function takes an id and reaches for the information of that item
+ * @param itemid Id of the item
+ * @param pdo SQL query
+ * @return item Info of that item as an array
+ */
 function getItem($itemid, $pdo)
 {
     $sql = <<<SQL
@@ -31,7 +36,11 @@ function getItem($itemid, $pdo)
     return $item;
 }
 
-//This function prints a cart item
+/**
+ * This function prints a cart item
+ * @param itemarray A session array
+ * @param num The number of items in a cart
+ */
 function printCartItem($itemarray, $num)
 {
     echo "<table border='1'>
