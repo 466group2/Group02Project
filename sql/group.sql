@@ -54,7 +54,7 @@ CREATE TABLE Orders(
     OrderID INT PRIMARY KEY AUTO_INCREMENT,                 -- Primray Key
     Notes VARCHAR(127),                                     -- Notes about order
     OrderDate DATE DEFAULT CURRENT_DATE(),                  -- Date of order
-    Total DOUBLE(9,2) DEFAULT 0.00,                        -- Total of order
+    Total DOUBLE(9,2) DEFAULT 0.00,                         -- Total of order
     Status CHAR(10) DEFAULT 'Pending',                      -- Status of order
     TrackingNum VARCHAR(31),                                -- Tracking number
     UserID INT,                                             -- UserID, foreign key
@@ -63,7 +63,7 @@ CREATE TABLE Orders(
 
 CREATE TABLE OrderDetails(
     OrderID INT PRIMARY KEY AUTO_INCREMENT,                 -- Primray Key
-    OrderDate DATE DEFAULT CURRENT_DATE(),                  -- Date of order
+    OrderDate DATE,                                         -- Date of order
     Price FLOAT(7),                                         -- Price of order
     QTYOrdered INT(100),                                    -- Quantity ordered
     UserID INT,                                             -- UserID, foreign key

@@ -72,13 +72,13 @@ function createOrder($pdo)
             echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
         }
 
-    $sql ='INSERT INTO Orders (ItemID, Price, QTYOrdered, UserID) VALUES (:ItemID, :Price, :QTYOrdered, :UserID)';
+    $sql ='INSERT INTO Orders (Total, Price, QTYOrdered, UserID) VALUES (:Total, :UserID)';
     $result = false;    
         try {
             $statement = $pdo->prepare($sql);
             if($statement) {
                     $result = $statement->execute([
-                        ':Price' => $_POST['name'],
+                        ':Total' => $_POST['name'],
                         ':ItemID' => $_POST['name'],
                         ':QTYOrdered' => $_POST['billing_address'],
                         ':UserID' => $_POST['shipping_address'],
