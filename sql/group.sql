@@ -7,11 +7,10 @@
 */
 
 
-
+DROP TABLE IF EXISTS Payment;
 DROP TABLE IF EXISTS OrderDetails;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Payment;
 DROP TABLE IF EXISTS Foods, Meds, Armors; 
 DROP TABLE IF EXISTS Products;
 
@@ -25,12 +24,6 @@ CREATE TABLE Products (
     price DOUBLE(9,2) DEFAULT 0.00,                 -- Price of Product
     qty INT DEFAULT 0,                              -- Available quantity
     type VARCHAR(255)                               -- Product type (armor, food, medicine)
-);
-
-CREATE TABLE Payment(
-    PaymentID INT PRIMARY KEY AUTO_INCREMENT,       -- Primary Key
-    CreditCardInfo INT (16),                        -- Credit Card #
-    PaymentAmount DOUBLE(9,2) DEFAULT 0.00          -- Payment Amout
 );
 
 CREATE TABLE User(
@@ -57,7 +50,6 @@ CREATE TABLE Orders(
 CREATE TABLE OrderDetails(
     RowID INT PRIMARY KEY AUTO_INCREMENT,                    -- Primary Key
     OrderID INT,                                         
-    OrderDate DATE,                                         -- Date of order
     Price FLOAT(7),                                         -- Price of order
     QTYOrdered INT(100),                                    -- Quantity ordered
     UserID INT,                                             -- UserID, foreign key
@@ -65,6 +57,16 @@ CREATE TABLE OrderDetails(
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     FOREIGN KEY (UserID) REFERENCES User(UserID),
     FOREIGN KEY (ItemID) REFERENCES Products(id)
+);
+
+CREATE TABLE Payment(
+    PaymentID INT PRIMARY KEY AUTO_INCREMENT,       -- Primary Key
+    CreditCardInfo INT (17),                        -- Credit Card #
+    PaymentAmount DOUBLE(9,2) DEFAULT 0.00,          -- Payment Amout
+    UserID INT,
+    OrderID INT,
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
 
 CREATE TABLE Armors (   
