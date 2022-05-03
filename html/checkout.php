@@ -31,6 +31,16 @@
     echo "Was the submit button pushed?:";
     if(isset($_POST["submit_checkout"]))
     {
+        if(isset($_POST["shipping_is_billing"]))    
+        {   
+            echo "</br>";
+            echo "shipping = billing button checked";
+            echo "</br>";
+            $_POST["shipping_address"] = $_POST["billing_address"];
+            echo "</br>";
+            echo "shipping = billing button set";
+            echo "</br>";
+        }
         echo "yes, submit button pushed";
         createOrder($pdo);
     } else {echo "no";}
