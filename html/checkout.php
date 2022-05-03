@@ -48,10 +48,6 @@
 
     
 ?>
-  <h4> session: </h4>
-  <pre> <?php print_r($_SESSION); ?> </pre> 
-  <h4> post: </h4>
-  <pre> <?php print_r($_POST); ?> </pre> 
   
 
 <!DOCTYPE html>
@@ -110,6 +106,43 @@
      
         <h1>Checkout</h1>    
         <h2>Please review your final order request:</h2>
+
+        <?php
+            if($_SESSION)
+            {
+                $total = 0;
+                echo "<table border='1'>
+                <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>QTY</th>
+                <th>Price</th>
+                <th>Total</th>
+                </tr>";
+                if(isset($_SESSION['cart']) && !empty($_SESSION['cart']))
+                { // If cart is not empty, show what is in cart
+                    foreach($_SESSION['cart'] as $idnum => $numof)
+                    {
+                        $item = getItem($idnum,$pdo);
+                        $total +=  printCartItem($item,$numof);
+                        $_SESSION['items'][$idnum] = $item[0]['price'];
+                    }
+                } else { // If carty is empty, print out message
+                    echo "<h3 class='p1'>Cart is empty</h3>";
+                    echo "<br></br>";
+                }
+                echo "<tr>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td>" . "SUBTOTAL:" . "</td>";
+                echo "<td>" . "$" . $total . "</td>";
+                echo "</tr>";
+                echo "</pre>";
+                echo "</table>";
+            }
+        ?>
+
         <h4>Accepted Cards</h4>
         <div class="icon-container">
             <i class="fa fa-cc-visa" style="color:white;"></i>
