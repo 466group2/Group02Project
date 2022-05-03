@@ -231,5 +231,49 @@ function createOrder($pdo)
     insertOrderDetails($pdo, $userID, $orderTotal, $orderID);
     insertCC($pdo, $userID, $orderTotal, $orderID);
 }
+
+
+function drawTable($rows) {
+    if(empty($rows)){
+        echo "    <p>No results found.</p>\n";
+    } else {
+        echo "    <table border=1 cellspacing=1>\n";
+        echo "        <tr>\n";
+        // Table Headers
+        foreach($rows[0] as $key => $value){
+            echo "            <th>$key</th>\n";
+        }
+        echo "        </tr>\n";
+        // Table Body
+        foreach($rows as $row){
+            // Table Row
+            echo "        <tr>\n";
+            foreach($row as $key => $value){
+                // Table Cell
+                echo "            <td>$value</td>\n";
+            }
+            echo "        </tr>\n";
+        }
+        echo "    </table>\n"; 
+    }
+}
+
+//This function calls the query to get table row information and then passes it into drawTable
+function drawTablePending(&$pdo){
+    try {
+        drawTable($pdo->query("SELECT * FROM Orders WHERE Status = 'Pending';")->fetchAll(PDO::FETCH_ASSOC));
+    } catch(PDOexception $error) {
+        echo 'Query failed: ' . $error->getMessage();
+    }
+}
+
+function drawTableOrders(&$pdo){
+    try {
+        drawTable($pdo->query("SELECT * FROM Orders WHERE NOT Status = 'Pending';")->fetchAll(PDO::FETCH_ASSOC));
+    } catch(PDOexception $error) {
+        echo 'Query failed: ' . $error->getMessage();
+    }
+}
+
 ?>
 
