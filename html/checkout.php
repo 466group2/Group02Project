@@ -30,7 +30,10 @@
 
     echo "Was the submit button pushed?:";
     if(isset($_POST["submit_checkout"]))
-    {
+    {   
+        echo "</br>";
+        echo "yes, submit button pushed";
+        $bool = false;
         if(isset($_POST["shipping_is_billing"]))    
         {   
             echo "</br>";
@@ -41,8 +44,33 @@
             echo "shipping = billing button set";
             echo "</br>";
         }
-        echo "yes, submit button pushed";
-        createOrder($pdo);
+
+        foreach($_POST as $k => $v)
+        {
+            if($k != "submit_checkout")
+            {
+                if(empty($v))
+                {   
+                    
+                    echo "</br>";
+                    echo "Error: $k field is null. You must enter a valid value.";
+                    echo "</br>";
+                    $bool = false;
+                    break;
+                }
+                else if(!empty($v)){ $bool = true;}
+            }
+        }
+
+       if($bool)
+        {
+            echo "</br>";
+            echo "bool is true, create order";
+            echo "</br>";
+            createOrder($pdo);
+        } 
+
+
     } else {echo "no";}
     
 
@@ -193,7 +221,7 @@
                 <input type="text" id="SHIP_ADDR" name="shipping_address"
                 placeholder="742 Evergreen Terrance, Springfield">
             </div>
-            <button class="button submit" name="submit_checkout" id="checkout">
+            <button class="button submit" name="submit_checkout" id="checkout" value="submit_checkout">
                 Submit <i class="fa fa-check"></i>
             </button>
         </form> <!--end form bracket-->
