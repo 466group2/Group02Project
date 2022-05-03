@@ -1,9 +1,10 @@
 <?php 
-/*
-*/
-
-//This function takes an id and reaches for the information of that item
-// it returns the info of that item as an array
+/**
+ * This function takes an id and reaches for the information of that item
+ * @param itemid Id of the item
+ * @param pdo SQL query
+ * @return item Info of that item as an array
+ */
 function getItem($itemid, $pdo)
 {
     $sql = <<<SQL
@@ -29,7 +30,11 @@ function getItem($itemid, $pdo)
     return $item;
 }
 
-//This function prints a cart item
+/**
+ * This function prints a cart item
+ * @param itemarray A session array
+ * @param num The number of items in a cart
+ */
 function printCartItem($itemarray, $num)
 {   $subtotal = 0;
         foreach($itemarray as $info){
