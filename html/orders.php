@@ -25,9 +25,9 @@
             echo "</br>";
         
             $sql ='SELECT 
+            Orders.OrderID, 
             Orders.UserID, 
             User.Name,
-            Orders.OrderID, 
             OrderDetails.ItemID, 
             Products.name,
             OrderDetails.Price, 
@@ -67,10 +67,10 @@
             echo "yes, UserID button pushed";
             echo "</br>";
         
-            $sql ='SELECT 
-            Orders.UserID, 
-            User.Name,
+            $sql ='SELECT
             Orders.OrderID, 
+            Orders.UserID, 
+            User.Name, 
             OrderDetails.ItemID, 
             Products.name,
             OrderDetails.Price, 
