@@ -50,6 +50,29 @@ function printCartItem($itemarray, $num)
         return $subtotal += $info['price'] * $num;
 }
 
+function getUser($pdo){
+
+    $sql ='SELECT UserID FROM User WHERE Name = :Name AND Phone = :Phone AND Email = :Email)';
+    $result = false;    
+        try {
+            $statement = $pdo->prepare($sql);
+            if($statement) {
+                    $result = $statement->execute([
+                        ':Name' => $_POST['name'],
+                        ':Phone' => $_POST['phone'],
+                        ':Email' => $_POST['email']
+                    ]);
+
+            } else {
+                echo "    <p>Could not query  database for unknown reason.</p>\n";
+            }
+        } catch (PDOException $e){
+            echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
+        }
+        return $result;
+
+}
+
 function createOrder($pdo)
 {
     $sql ='INSERT INTO User (Name, BillingAddress, ShippingAddress, Phone, Email) VALUES (:Name, :BillingAddress, :ShippingAddress, :Phone, :Email)';
@@ -72,16 +95,17 @@ function createOrder($pdo)
             echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
         }
 
-    $sql ='INSERT INTO Orders (Total, Price, QTYOrdered, UserID) VALUES (:Total, :UserID)';
+    /*    
+    $userID = getUser($pdo);
+        
+    $sql ='INSERT INTO Orders (Total, UserID) VALUES (:Total, :UserID)';
     $result = false;    
         try {
             $statement = $pdo->prepare($sql);
             if($statement) {
                     $result = $statement->execute([
-                        ':Total' => $_POST['name'],
-                        ':ItemID' => $_POST['name'],
-                        ':QTYOrdered' => $_POST['billing_address'],
-                        ':UserID' => $_POST['shipping_address'],
+                        ':Total' => $_SESSION['total'],
+                        ':UserID' => $userID
                     ]);
 
             } else {
@@ -90,8 +114,8 @@ function createOrder($pdo)
         } catch (PDOException $e){
             echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
         }       
-
         
+        */
 }
 ?>
 
