@@ -64,6 +64,9 @@
                 font-size: 25px;
                 margin: 20px 10px;
             }
+            .p1{
+                font-family: Arial;
+            }
         </style>
     </head>
     <body>
@@ -115,11 +118,17 @@
                 <th>Total</th>
                 </tr>";
                 
-                foreach($_SESSION['cart'] as $idnum => $numof)
-                {
-                    $item = getItem($idnum,$pdo);
-                    $total +=  printCartItem($item,$numof);
-                    $_SESSION['items'][$idnum] = $item[0]['price'];
+                if(isset($_SESSION['cart']) && !empty($_SESSION['cart']))
+                { // If cart is not empty, show what is in cart
+                    foreach($_SESSION['cart'] as $idnum => $numof)
+                    {
+                        $item = getItem($idnum,$pdo);
+                        $total +=  printCartItem($item,$numof);
+                        $_SESSION['items'][$idnum] = $item[0]['price'];
+                    }
+                } else { // If carty is empty, print out message
+                    echo "<h3 class='p1'>Cart is empty</h3>";
+                    echo "<br></br>";
                 }
 
                 echo "<tr>";
@@ -132,7 +141,6 @@
                 echo "</pre>";
                 echo "</table>";
                 $_SESSION['total'] = $total;
-                print_r($_SESSION['items']);
             }
         ?>
     </body>
