@@ -150,7 +150,8 @@
         </div>
         
             <div>
-                <label>Credit Card</label>
+                <label><i class="fa fa-credit-card"></i>
+                    Credit Card</label>
                 <input type="number" id="CREDIT_CARD" name="credit_card"
                 placeholder="1234123412341234">
             </div>
