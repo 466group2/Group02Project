@@ -110,8 +110,8 @@
         
             <div>
                 <label>Credit Card</label>
-                <input type="text" id="CREDIT_CARD" name="credit_card"
-                placeholder="1234-1234-1234-1234">
+                <input type="number" id="CREDIT_CARD" name="credit_card"
+                placeholder="1234123412341234">
                 <label>
             </div>
       

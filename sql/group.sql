@@ -6,14 +6,11 @@
 * Purpose: SQL file to create database for online store
 */
 
-DROP TABLE IF EXISTS Added;
-DROP TABLE IF EXISTS Generates;
-DROP TABLE IF EXISTS ViewOrder;
-DROP TABLE IF EXISTS Employee;
+
+DROP TABLE IF EXISTS Payment;
+DROP TABLE IF EXISTS OrderDetails;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Payment;
-DROP TABLE IF EXISTS ShoppingCart;
 DROP TABLE IF EXISTS Foods, Meds, Armors; 
 DROP TABLE IF EXISTS Products;
 
@@ -29,17 +26,6 @@ CREATE TABLE Products (
     type VARCHAR(255)                               -- Product type (armor, food, medicine)
 );
 
-CREATE TABLE ShoppingCart(
-    CartID INT PRIMARY KEY AUTO_INCREMENT,          -- Primray Key
-    QTYRequested INT(100)                           -- Quanutiy requested
-);
-
-CREATE TABLE Payment(
-    PaymentID INT PRIMARY KEY AUTO_INCREMENT,       -- Primary Key
-    CreditCardInfo INT (16),                        -- Credit Card #
-    PaymentAmount DOUBLE(9,2) DEFAULT 0.00          -- Payment Amout
-);
-
 CREATE TABLE User(
     UserID INT PRIMARY KEY AUTO_INCREMENT,          -- Primrary Key
     Notes VARCHAR(127),                             -- Notes about User
@@ -52,63 +38,35 @@ CREATE TABLE User(
 
 CREATE TABLE Orders(
     OrderID INT PRIMARY KEY AUTO_INCREMENT,                 -- Primray Key
-    Notes VARCHAR(127),                                     -- Notes about order
     OrderDate DATE DEFAULT CURRENT_DATE(),                  -- Date of order
-    Total DOUBLE(9,2) DEFAULT 0.00,                         -- Total of order
-    Status CHAR(10) DEFAULT 'Pending',                      -- Status of order
-    TrackingNum VARCHAR(31),                                -- Tracking number
     UserID INT,                                             -- UserID, foreign key
+    Total DOUBLE(9,2) DEFAULT 0.00,                         -- Total of order
+    Notes VARCHAR(127),                                     -- Notes about order
+    TrackingNum VARCHAR(31),                                -- Tracking number
+    Status CHAR(10) DEFAULT 'Pending',                      -- Status of order
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
 
 CREATE TABLE OrderDetails(
-    OrderID INT PRIMARY KEY AUTO_INCREMENT,                 -- Primray Key
-    OrderDate DATE,                                         -- Date of order
+    RowID INT PRIMARY KEY AUTO_INCREMENT,                    -- Primary Key
+    OrderID INT,                                         
     Price FLOAT(7),                                         -- Price of order
     QTYOrdered INT(100),                                    -- Quantity ordered
     UserID INT,                                             -- UserID, foreign key
     ItemID INT,
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
-    FOREIGN KEY (ItemID) REFERENCES Products(id),
-    FOREIGN KEY (OrderDate) REFERENCES Orders(OrderDate)
-);
-
-CREATE TABLE Employee(
-    EmpID INT PRIMARY KEY AUTO_INCREMENT,                   -- Primary Key
-    Role VARCHAR(127),                                      -- Role of employee
-    OrderID INT,
-    FOREIGN KEY (EmpID) REFERENCES User(UserID),            -- Foreign Key
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)        -- Foreign Key
-);
-
-CREATE TABLE ViewOrder(
-    EmpID INT,
-    OrderID INT,
-    PRIMARY KEY (EmpID, OrderID),                           -- Primary Key
-    FOREIGN KEY (EmpID) REFERENCES Employee(EmpID),
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
-);
-
-CREATE TABLE Generates(
-    product_id INT,
-    CartID INT,
-    OrderID INT,
-    PaymentID INT,
-    PRIMARY KEY (product_id, CartID, OrderID, PaymentID),          -- Primrary Key
-    FOREIGN KEY (product_id) REFERENCES Products(id),
-    FOREIGN KEY (CartID) REFERENCES ShoppingCart(CartID),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    FOREIGN KEY (PaymentID) REFERENCES Payment(PaymentID)
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (ItemID) REFERENCES Products(id)
 );
 
-CREATE TABLE Added(
-    product_id INT,
-    CartID INT,
+CREATE TABLE Payment(
+    PaymentID INT PRIMARY KEY AUTO_INCREMENT,       -- Primary Key
+    CreditCardInfo INT (17),                        -- Credit Card #
+    PaymentAmount DOUBLE(9,2) DEFAULT 0.00,          -- Payment Amout
     UserID INT,
-    PRIMARY KEY (product_id, CartID),                              -- Primary KEy
-    FOREIGN KEY (product_id) REFERENCES Products(id),
-    FOREIGN KEY (CartID) REFERENCES ShoppingCart(CartID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)                -- Foreign Key
+    OrderID INT,
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
 
 CREATE TABLE Armors (   
