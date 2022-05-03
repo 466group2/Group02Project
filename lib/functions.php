@@ -1,9 +1,7 @@
 <?php 
-/*Alex Peterson Z1912480
-CSCI 466 Assignment 9 PHP with forms
-Due 4/8/22 11:59p
-library.php
+/*
 */
+
 //This function takes an id and reaches for the information of that item
 // it returns the info of that item as an array
 function getItem($itemid, $pdo)
@@ -47,5 +45,48 @@ function printCartItem($itemarray, $num)
         return $subtotal += $info['price'] * $num;
 }
 
+function createOrder($pdo)
+{
+    $sql ='INSERT INTO User (Name, BillingAddress, ShippingAddress, Phone, Email) VALUES (:Name, :BillingAddress, :ShippingAddress, :Phone, :Email)';
+    $result = false;    
+        try {
+            $statement = $pdo->prepare($sql);
+            if($statement) {
+                    $result = $statement->execute([
+                        ':Name' => $_POST['name'],
+                        ':BillingAddress' => $_POST['billing_address'],
+                        ':ShippingAddress' => $_POST['shipping_address'],
+                        ':Phone' => $_POST['phone'],
+                        ':Email' => $_POST['email']
+                    ]);
+
+            } else {
+                echo "    <p>Could not query  database for unknown reason.</p>\n";
+            }
+        } catch (PDOException $e){
+            echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
+        }
+
+    $sql ='INSERT INTO Orders (ItemID, Price, QTYOrdered, UserID) VALUES (:ItemID, :Price, :QTYOrdered, :UserID)';
+    $result = false;    
+        try {
+            $statement = $pdo->prepare($sql);
+            if($statement) {
+                    $result = $statement->execute([
+                        ':Price' => $_POST['name'],
+                        ':ItemID' => $_POST['name'],
+                        ':QTYOrdered' => $_POST['billing_address'],
+                        ':UserID' => $_POST['shipping_address'],
+                    ]);
+
+            } else {
+                echo "    <p>Could not query  database for unknown reason.</p>\n";
+            }
+        } catch (PDOException $e){
+            echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
+        }       
+
+        
+}
 ?>
 

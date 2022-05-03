@@ -23,10 +23,13 @@
     // start session
     session_name('cart');
     session_start();
+    $_SESSION['items'] = NULL;
 
     if(isset($_POST["clear"]))
-    {
+    {   
         unset($_SESSION['cart']);
+        unset($_SESSION['items']);
+        unset($_SESSION['total']);
     }
 ?>
 
@@ -111,10 +114,12 @@
                 <th>Price</th>
                 <th>Total</th>
                 </tr>";
+                
                 foreach($_SESSION['cart'] as $idnum => $numof)
                 {
                     $item = getItem($idnum,$pdo);
                     $total +=  printCartItem($item,$numof);
+                    $_SESSION['items'][$idnum] = $item[0]['price'];
                 }
 
                 echo "<tr>";
@@ -126,6 +131,8 @@
                 echo "</tr>";
                 echo "</pre>";
                 echo "</table>";
+                $_SESSION['total'] = $total;
+                print_r($_SESSION['items']);
             }
         ?>
     </body>

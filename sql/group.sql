@@ -37,7 +37,7 @@ CREATE TABLE ShoppingCart(
 CREATE TABLE Payment(
     PaymentID INT PRIMARY KEY AUTO_INCREMENT,       -- Primary Key
     CreditCardInfo INT (16),                        -- Credit Card #
-    PaymentAmount DOUBLE(9,2) DEFAULT 0.00,         -- Payment Amout
+    PaymentAmount DOUBLE(9,2) DEFAULT 0.00          -- Payment Amout
 );
 
 CREATE TABLE User(
@@ -53,13 +53,24 @@ CREATE TABLE User(
 CREATE TABLE Orders(
     OrderID INT PRIMARY KEY AUTO_INCREMENT,                 -- Primray Key
     Notes VARCHAR(127),                                     -- Notes about order
-    `Date` DATE,                                            -- Date of order
-    Price FLOAT(7),                                         -- Price of order
-    QTYOrdered INT(100),                                    -- Quantity ordered
-    Status CHAR(6),                                         -- Status of order
+    OrderDate DATE DEFAULT CURRENT_DATE(),                  -- Date of order
+    Total DOUBLE(9,2) DEFAULT 0.00,                        -- Total of order
+    Status CHAR(10) DEFAULT 'Pending',                      -- Status of order
     TrackingNum VARCHAR(31),                                -- Tracking number
     UserID INT,                                             -- UserID, foreign key
     FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+CREATE TABLE OrderDetails(
+    OrderID INT PRIMARY KEY AUTO_INCREMENT,                 -- Primray Key
+    OrderDate DATE DEFAULT CURRENT_DATE(),                  -- Date of order
+    Price FLOAT(7),                                         -- Price of order
+    QTYOrdered INT(100),                                    -- Quantity ordered
+    UserID INT,                                             -- UserID, foreign key
+    ItemID INT,
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (ItemID) REFERENCES Products(id),
+    FOREIGN KEY (OrderDate) REFERENCES Orders(OrderDate)
 );
 
 CREATE TABLE Employee(

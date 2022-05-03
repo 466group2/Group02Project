@@ -28,19 +28,21 @@
     session_name('cart');
     session_start();
 
-    if(isset($_POST["submit"]))
+    echo "Was the submit button pushed?:";
+    if(isset($_POST["submit_checkout"]))
     {
-        echo "submit button pushed";
-    }
+        echo "yes, submit button pushed";
+        createOrder($pdo);
+    } else {echo "no";}
     
+
     
 ?>
   <h4> session: </h4>
   <pre> <?php print_r($_SESSION); ?> </pre> 
   <h4> post: </h4>
   <pre> <?php print_r($_POST); ?> </pre> 
-  <h4> get: </h4>
-  <pre> <?php print_r($_GET); ?> </pre> 
+  
 
 <!DOCTYPE html>
 <html lang="en">
