@@ -79,6 +79,12 @@
                 padding: 8px;
             }
 
+            input[type="number"]{
+                width: 50%;
+                margin-bottom: 10px;
+                padding: 8px;
+            }
+
             label{
                 display: block;
                 margin-bottom: 10px;
@@ -87,14 +93,6 @@
                 margin-bottom: 20px;
                 padding: 7px 0;
                 font-size: 30px;
-            }
-
-            .row {
-                display: -ms-flexbox;
-                display: flex;
-                -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
-                margin: 0 -16px;
             }
         </style>
     </head>
@@ -155,7 +153,6 @@
                 <label>Credit Card</label>
                 <input type="number" id="CREDIT_CARD" name="credit_card"
                 placeholder="1234123412341234">
-                <label>
             </div>
       
         <h3>Billing Address</h3>
