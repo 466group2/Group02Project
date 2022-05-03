@@ -45,22 +45,24 @@ CREATE TABLE User(
 
 CREATE TABLE Orders(
     OrderID INT PRIMARY KEY AUTO_INCREMENT,                 -- Primray Key
-    Notes VARCHAR(127),                                     -- Notes about order
     OrderDate DATE DEFAULT CURRENT_DATE(),                  -- Date of order
-    Total DOUBLE(9,2) DEFAULT 0.00,                         -- Total of order
-    Status CHAR(10) DEFAULT 'Pending',                      -- Status of order
-    TrackingNum VARCHAR(31),                                -- Tracking number
     UserID INT,                                             -- UserID, foreign key
+    Total DOUBLE(9,2) DEFAULT 0.00,                         -- Total of order
+    Notes VARCHAR(127),                                     -- Notes about order
+    TrackingNum VARCHAR(31),                                -- Tracking number
+    Status CHAR(10) DEFAULT 'Pending',                      -- Status of order
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
 
 CREATE TABLE OrderDetails(
-    OrderID INT PRIMARY KEY AUTO_INCREMENT,                 -- Primray Key
+    RowID INT PRIMARY KEY AUTO_INCREMENT,                    -- Primary Key
+    OrderID INT,                                         
     OrderDate DATE,                                         -- Date of order
     Price FLOAT(7),                                         -- Price of order
     QTYOrdered INT(100),                                    -- Quantity ordered
     UserID INT,                                             -- UserID, foreign key
     ItemID INT,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     FOREIGN KEY (UserID) REFERENCES User(UserID),
     FOREIGN KEY (ItemID) REFERENCES Products(id)
 );

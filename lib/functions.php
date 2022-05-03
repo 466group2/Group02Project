@@ -50,51 +50,163 @@ function printCartItem($itemarray, $num)
         return $subtotal += $info['price'] * $num;
 }
 
-function getUser($pdo){
-
-    $sql ='SELECT UserID FROM User WHERE Name = :Name AND Phone = :Phone AND Email = :Email';
+function selectUser($pdo){
+    $sql ='SELECT UserID FROM User WHERE Name = :Name AND :BillingAddress = BillingAddress AND :ShippingAddress = ShippingAddress AND :Phone = Phone AND :Email = Email';
     $result = false;    
         try {
             $statement = $pdo->prepare($sql);
             if($statement) {
                     $result = $statement->execute([
                         ':Name' => $_POST['name'],
+                        ':BillingAddress' => $_POST['billing_address'],
+                        ':ShippingAddress' => $_POST['shipping_address'],
                         ':Phone' => $_POST['phone'],
                         ':Email' => $_POST['email']
                     ]);
-                    $result = $statement->fetchColumn();
+                    //If user already exists, userID is the user from the above SELECT
+                    if($statement->rowCount() == 1){
+                    $userID = $statement->fetchColumn();
+                    echo "userID which exists: ";
+                    print_r($userID);
+                    echo "</br>";
+                    echo " User found, selecting from user table ";
+                    echo "</br>";
+                    }
 
+                    //If the user does not exist in the table
+                   if($statement->rowCount() == 0){
+                       echo "</br>"; 
+                       echo " User not found, inserting into user table ";
+                       echo "</br>";
+                       //insert into user table 
+                       $sql ='INSERT INTO User (Name, BillingAddress, ShippingAddress, Phone, Email) VALUES (:Name, :BillingAddress, :ShippingAddress, :Phone, :Email)';
+                       $result = false;  
+                       $statement = $pdo->prepare($sql);
+                       if($statement){
+                        $result = $statement->execute([
+                            ':Name' => $_POST['name'],
+                            ':BillingAddress' => $_POST['billing_address'],
+                            ':ShippingAddress' => $_POST['shipping_address'],
+                            ':Phone' => $_POST['phone'],
+                            ':Email' => $_POST['email']
+                        ]);
+                       }
+                       //call getUser using POST array and fill userID with most recent user in User table
+                       echo "most recent user: ";
+                       $userID = $pdo->lastInsertId();
+                       print_r($userID);
+                    }
+                   
             } else {
-                echo "    <p>Could not query  database for unknown reason.</p>\n";
+                echo " <p>Could not query  database for unknown reason.</p>\n";
             }
         } catch (PDOException $e){
             echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
         }
-        print_r($result);
-        return $result;
-
+        return $userID;
 }
 
-function getOrderID($pdo){
-    $sql ='SELECT OrderID FROM Orders ORDER BY OrderID DESC LIMIT 1';
+function getCartTotal($pdo){
+    $orderTotal= NULL;
+    foreach($_SESSION['cart'] as $pid => $quantity)
+    {    
+    $sql ='SELECT price FROM Products WHERE :PID = id';
     $result = false;    
         try {
             $statement = $pdo->prepare($sql);
             if($statement) {
-                    $result = $statement->execute([]);
-                    $result = $statement->fetchColumn();
-
+                    $result = $statement->execute([
+                        ':PID' => $pid,
+                    ]);
+                    echo "</br>"; 
+                    echo " price found ";
+                    echo "</br>";
             } else {
                 echo "    <p>Could not query  database for unknown reason.</p>\n";
             }
         } catch (PDOException $e){
             echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
-        }
-        print_r($result);
-        return $result;
+        }       
+         
+        $orderTotal += $statement->fetchColumn();
+        echo "</br>"; 
+                    echo " the total is currently: ";
+                    echo $orderTotal;
+                    echo "</br>";
+    }
+    return $orderTotal;
+}
+
+function insertOrder($pdo, $userID, $orderTotal)
+{
+    $sql ='INSERT INTO Orders (Total, UserID) VALUES (:Total, :UserID)';
+    $result = false;    
+        try {
+            $statement = $pdo->prepare($sql);
+            if($statement) {
+                    $result = $statement->execute([
+                        ':Total' => $orderTotal,
+                        ':UserID' => $userID 
+                    ]);
+                    echo "</br>"; 
+                    echo " Order inserted into Orders table ";
+                    echo "</br>";
+            } else {
+                echo "    <p>Could not query  database for unknown reason.</p>\n";
+            }
+        } catch (PDOException $e){
+            echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
+        }       
+
+    //Get most recent orderID to insert into OrderDetails table    
+    echo " Order number: ";
+    $orderID = $pdo->lastInsertId();
+    print_r($orderID);
+    return $orderID;
+}
+
+function insertOrderDetails($pdo, $userID, $orderTotal, $orderID)
+{
+    foreach($_SESSION['cart'] as $pid => $quantity)
+    {   $itemPrice = NULL;
+        $itemPrice = getItem($pid, $pdo);
+        //print_r($itemPrice[0]);
+
+        $sql ='INSERT INTO OrderDetails (UserID, OrderID, Price, QTYOrdered, ItemID) VALUES (:UserID, :OrderID, :Price, :QTYOrdered, :ItemID)';
+        $result = false;    
+        try {
+            $statement = $pdo->prepare($sql);
+            if($statement) {
+                    $result = $statement->execute([
+                        ':UserID' => $userID,
+                        ':OrderID' => $orderID,
+                        ':Price' => $itemPrice[0]['price'],
+                        ':QTYOrdered' => $quantity,
+                        ':ItemID' => $pid
+                    ]);
+                    echo "</br>"; 
+                    echo "Row for PN $pid inserted into OrderDetails table ";
+                    echo "</br>";
+            } else {
+                echo "    <p>Could not query  database for unknown reason.</p>\n";
+            }
+        } catch (PDOException $e){
+            echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
+        }       
+
+    }    
+}
+
+function createOrder($pdo)
+{
+    $userID = selectUser($pdo);
+    $orderTotal	= getCartTotal($pdo);
+    $orderID = insertOrder($pdo, $userID, $orderTotal);
+    insertOrderDetails($pdo, $userID, $orderTotal, $orderID);
 
 }
 
+/*
 function createOrder($pdo)
 {
     //User find
@@ -140,7 +252,7 @@ function createOrder($pdo)
                        }
                        //call getUser using POST array and fill userID with most recent user in User table
                        echo "most recent user: ";
-                       $userID = getUser($pdo);
+                       $userID = $pdo->lastInsertId();
                        print_r($userID);
                     }
                    
@@ -151,18 +263,20 @@ function createOrder($pdo)
             echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
         }
 
-    //Order insert
-    $sql ='INSERT INTO Orders (Total, UserID) VALUES (:Total, :UserID)';
+    //Gets cart $ total to fill $orderTotal for inserting into Orders table
+    $orderTotal= NULL;
+    foreach($_SESSION['cart'] as $pid => $quantity)
+    {    
+    $sql ='SELECT price FROM Products WHERE :PID = id';
     $result = false;    
         try {
             $statement = $pdo->prepare($sql);
             if($statement) {
                     $result = $statement->execute([
-                        ':Total' => $_SESSION['total'],
-                        ':UserID' => $userID 
+                        ':PID' => $pid,
                     ]);
                     echo "</br>"; 
-                    echo " Order inserted into table ";
+                    echo " price found ";
                     echo "</br>";
             } else {
                 echo "    <p>Could not query  database for unknown reason.</p>\n";
@@ -170,26 +284,27 @@ function createOrder($pdo)
         } catch (PDOException $e){
             echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
         }       
-    
-    $orderID = getOrderID();
-    echo " Order number: ";
-    print_r($orderID);
-    
-    foreach($_SESSION['items'] as $k => $price && $_SESSION['cart'] as $j => $qty)
-    $sql ='INSERT INTO OrderDetails (Total, UserID, OrderID, Price, QTYOrdered, ItemID) VALUES (:Total, :UserID, :OrderID, :Price, :QTYOrdered, :ItemID)';
+         
+        $orderTotal += $statement->fetchColumn();
+        echo "</br>"; 
+                    echo " the total is currently: ";
+                    echo $orderTotal;
+                    echo "</br>";
+    }
+
+    //Order insert
+    $sql ='INSERT INTO Orders (Total, UserID) VALUES (:Total, :UserID)';
     $result = false;    
         try {
             $statement = $pdo->prepare($sql);
             if($statement) {
                     $result = $statement->execute([
-                        ':Total' => $_SESSION['total'],
-                        ':UserID' => $userID,
-                        ':OrderID' => $orderID,
-                        ':Price' => $_SESSION['total'],
-                        ':QTYOrdered' => $qty,
-                        ':ItemID' => $_SESSION['total']
+                        ':Total' => $orderTotal,
+                        ':UserID' => $userID 
                     ]);
-
+                    echo "</br>"; 
+                    echo " Order inserted into Orders table ";
+                    echo "</br>";
             } else {
                 echo "    <p>Could not query  database for unknown reason.</p>\n";
             }
@@ -197,7 +312,40 @@ function createOrder($pdo)
             echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
         }       
 
-        
-}
+    //Get most recent orderID to insert into OrderDetails table    
+    echo " Order number: ";
+    $orderID = $pdo->lastInsertId();
+    print_r($orderID);
+   
+    //Insert new order details into OrderDetails table   
+    foreach($_SESSION['cart'] as $pid => $quantity)
+    {   $itemPrice = NULL;
+        $itemPrice = getItem($pid, $pdo);
+        //print_r($itemPrice[0]);
+
+        $sql ='INSERT INTO OrderDetails (UserID, OrderID, Price, QTYOrdered, ItemID) VALUES (:UserID, :OrderID, :Price, :QTYOrdered, :ItemID)';
+        $result = false;    
+        try {
+            $statement = $pdo->prepare($sql);
+            if($statement) {
+                    $result = $statement->execute([
+                        ':UserID' => $userID,
+                        ':OrderID' => $orderID,
+                        ':Price' => $itemPrice[0]['price'],
+                        ':QTYOrdered' => $quantity,
+                        ':ItemID' => $pid
+                    ]);
+                    echo "</br>"; 
+                    echo "Row for PN $pid inserted into OrderDetails table ";
+                    echo "</br>";
+            } else {
+                echo "    <p>Could not query  database for unknown reason.</p>\n";
+            }
+        } catch (PDOException $e){
+            echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
+        }       
+
+    }    
+} */
 ?>
 
