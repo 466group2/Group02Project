@@ -14,6 +14,15 @@
     //connect to mariadb
     $pdo = connectdb();
 
+    /*
+    if(isset($_POST["nuke"]))
+    {
+        echo "nuke pressed";
+        echo "</br>";
+        nukeTables($pdo);
+
+    }
+    */
 
     echo "Was the submit button pushed?:";
     if(isset($_POST["modify"]))
@@ -112,6 +121,13 @@
             </button>
         </form>
 
+        <!--
+        <form method="POST"> 
+        <button class="button nuke" name="nuke">Nuke Tables 
+            </button>
+        </form>
+        -->
+
         <h4> post: </h4>
         <pre> <?php print_r($_POST); ?> </pre> 
 
@@ -133,9 +149,26 @@
        
         </form>
 
-        <h2>All Orders below:</h2>
+        <h2>All orders not pending below:</h2>
         <?php drawTableOrders($pdo); ?>
 
+        <h2>Users:</h2>   
+        <?php 
+        try {
+        drawTable($pdo->query("SELECT * FROM User")->fetchAll(PDO::FETCH_ASSOC));
+            } catch(PDOexception $error) {
+                echo 'Query failed: ' . $error->getMessage();
+            }
+             
+        ?>
+
+            <form method="POST">   
+            <input type="number" id="status" name="status"></br>
+            <button class="button submit" name="modify" id="checkout">
+            Delete user and their orders <i class="fa fa-check"></i>
+            </button></br>
+       
+        </form>
 
     </body>
 </html>

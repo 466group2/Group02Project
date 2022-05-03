@@ -275,5 +275,16 @@ function drawTableOrders(&$pdo){
     }
 }
 
+/*
+function nukeTables(&$pdo){
+    $pdo->query(file_get_contents('../sql/group.sql'));
+    echo "tables droped and recreated";
+    echo "</br>";
+
+    $pdo->query(file_get_contents('../sql/load.sql'));
+    echo "tables loaded";
+    echo "</br>";
+}
+*/
 ?>
 
