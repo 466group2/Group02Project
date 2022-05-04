@@ -18,10 +18,7 @@
     //connect to mariadb
     $pdo = connectdb();
 
-   
     if(isset($_POST["modify"])){
-       
-
         $sql = "UPDATE Products SET qty = :qty WHERE id = :itemID;";
         $result = false;    
         try {
@@ -48,7 +45,6 @@
         echo "</br>";
     }
 
-  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,18 +117,13 @@
                 <i class="fa fa-user"></i>
             </button>
         </form>
-
         <?php
-            
             try {
                 drawTable($pdo->query("SELECT id, name, price, qty, type FROM Products;")->fetchAll(PDO::FETCH_ASSOC));
             } catch(PDOexception $error) {
                 echo 'Query failed: ' . $error->getMessage();
             } 
         ?>
-
-        
-
         <h2>Update inventory:</h2>
         <form method="POST">   
             <label for="itemID"><i class="fa fa-pencil"></i>
@@ -144,9 +135,6 @@
             <button class="button submit" name="modify" id="modify">
             Update quantity <i class="fa fa-check"></i>
             </button></br>
-       
         </form>
-
-
     </body>
 </html>

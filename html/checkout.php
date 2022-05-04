@@ -37,13 +37,7 @@
         $bool = false;
         if(isset($_POST["shipping_is_billing"]))    
         {   
-            echo "</br>";
-            echo "shipping = billing button checked";
-            echo "</br>";
             $_POST["shipping_address"] = $_POST["billing_address"];
-            echo "</br>";
-            echo "shipping = billing button set";
-            echo "</br>";
         }
 
         foreach($_POST as $k => $v)
@@ -78,8 +72,13 @@
             echo "Please save this information to look up your order.";
             echo "</br>";
             echo "<hr>";
+
+            unset($_SESSION['cart']);
+            unset($_SESSION['items']);
+            unset($_SESSION['total']);
+        
         } 
-    } else {echo "no";}
+    } 
 
 ?>
   
@@ -143,7 +142,7 @@
             <button class="button home" name="home">Home 
                 <i class="fa fa-home"></i>
             </button>
-            <button class="button cart" name="cart">Cart 
+            <button class="button cart" name="cart">Shopping Cart 
                 <i class="fa fa-shopping-cart"></i>
             </button>
        
