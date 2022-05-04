@@ -143,7 +143,7 @@
             <button class="button home" name="home">Home 
                 <i class="fa fa-home"></i>
             </button>
-            <button class="button cart" name="cart">Cart 
+            <button class="button cart" name="cart">Shopping Cart 
                 <i class="fa fa-shopping-cart"></i>
             </button>
        

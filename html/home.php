@@ -166,7 +166,7 @@
                 Medicine <i class="fa fa-medkit"></i>
             </button> 
             <br>
-            <h2>Check your oders</h3>
+            <h2>Review your orders</h3>
             <button class="button button4" name="cart">
                 Cart <i class="fa fa-shopping-cart"></i></button>
             <button class="button button5" name="orders">
