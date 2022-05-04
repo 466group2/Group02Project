@@ -23,6 +23,10 @@
     {
         header("location:home.php");
     }
+    if(isset($_POST["cart"]))  
+    {  
+        header("location:cart.php"); 
+    }
     //connect to mariadb
     $pdo = connectdb();
     session_name('cart');
@@ -97,6 +101,13 @@
                 font-size: 25px;
                 margin: 20px 10px;
             }
+            .cart{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 25px;
+                margin: 20px 10px;
+            }
             .submit{
                 position: relative;
                 right: 10px;
@@ -132,6 +143,10 @@
             <button class="button home" name="home">Home 
                 <i class="fa fa-home"></i>
             </button>
+            <button class="button cart" name="cart">Cart 
+                <i class="fa fa-shopping-cart"></i>
+            </button>
+       
      
         <h1>Checkout</h1>    
         <h2>Please review your final order request:</h2>

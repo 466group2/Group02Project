@@ -11,6 +11,10 @@
     {
         header("location:home.php");
     }
+    if(isset($_POST["orders"]))
+    {
+        header("location:pending.php");
+    }
     //connect to mariadb
     $pdo = connectdb();
 
@@ -70,6 +74,13 @@
             font-size: 25px;
             margin: 20px 10px;
         }
+        .orders{
+            position: absolute;
+            top: 60px;
+            left: 10px;
+            font-size: 25px;
+            margin: 20px 10px;
+        }
         .submit{
             position: relative;
             right: 10px;
@@ -103,6 +114,11 @@
         <form method="POST">
             <button class="button home" name="home">Home 
                 <i class="fa fa-home"></i>
+            </button>
+        </form>
+        <form method="POST">
+            <button class="button orders" name="orders">Order Management 
+                <i class="fa fa-user"></i>
             </button>
         </form>
 
