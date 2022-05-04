@@ -10,10 +10,19 @@
 DROP TABLE IF EXISTS Payment;
 DROP TABLE IF EXISTS OrderDetails;
 DROP TABLE IF EXISTS Orders;
-DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Foods, Meds, Armors; 
 DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS User;
 
+CREATE TABLE User(
+    UserID INT PRIMARY KEY AUTO_INCREMENT,          -- Primrary Key
+    Notes VARCHAR(127),                             -- Notes about User
+    Name VARCHAR(31),                               -- Name of user
+    BillingAddress VARCHAR(255),                    -- Billing Address of User
+    ShippingAddress VARCHAR(255),                   -- Shipping Address of User
+    Phone VARCHAR(14),                              -- Phone number of User
+    Email VARCHAR(255)                              -- Email address of User
+);
 
 CREATE TABLE Products (
     id INT AUTO_INCREMENT PRIMARY KEY,              -- Primary Key
@@ -26,14 +35,25 @@ CREATE TABLE Products (
     type VARCHAR(255)                               -- Product type (armor, food, medicine)
 );
 
-CREATE TABLE User(
-    UserID INT PRIMARY KEY AUTO_INCREMENT,          -- Primrary Key
-    Notes VARCHAR(127),                             -- Notes about User
-    Name VARCHAR(31),                               -- Name of user
-    BillingAddress VARCHAR(255),                    -- Billing Address of User
-    ShippingAddress VARCHAR(255),                   -- Shipping Address of User
-    Phone VARCHAR(14),                              -- Phone number of User
-    Email VARCHAR(255)                              -- Email address of User
+CREATE TABLE Armors (   
+  item_id INT PRIMARY KEY,                          -- Primary Key
+  name VARCHAR(255) NOT NULL,                       -- Name of armor
+  tier INT DEFAULT 1,
+  FOREIGN KEY (item_id) REFERENCES Products(id)
+);
+
+CREATE TABLE Meds (
+  item_id INT PRIMARY KEY,                          -- Primary Key
+  type VARCHAR(255) NOT NULL,                       -- Type of medicine
+  name VARCHAR(255) NOT NULL,                       -- Name of medicine
+  FOREIGN KEY (item_id) REFERENCES Products(id)
+);
+
+CREATE TABLE Foods (
+  item_id INT PRIMARY KEY,                          -- Primary Key
+  type VARCHAR(255) NOT NULL,                       -- Type of food
+  name VARCHAR(255) NOT NULL,                       -- Name of foofd
+  FOREIGN KEY (item_id) REFERENCES Products(id)
 );
 
 CREATE TABLE Orders(
@@ -60,32 +80,12 @@ CREATE TABLE OrderDetails(
 );
 
 CREATE TABLE Payment(
-    PaymentID INT PRIMARY KEY AUTO_INCREMENT,       -- Primary Key
+    PaymentID INT PRIMARY KEY AUTO_INCREMENT,         -- Primary Key
     CreditCardInfo BIGINT(16),                        -- Credit Card #
-    PaymentAmount DOUBLE(9,2) DEFAULT 0.00,          -- Payment Amout
+    PaymentAmount DOUBLE(9,2) DEFAULT 0.00,           -- Payment Amout
     UserID INT,
     OrderID INT,
     FOREIGN KEY (UserID) REFERENCES User(UserID),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
 
-CREATE TABLE Armors (   
-  item_id INT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  tier INT DEFAULT 1,
-  FOREIGN KEY (item_id) REFERENCES Products(id)
-);
-
-CREATE TABLE Meds (
-  item_id INT PRIMARY KEY,
-  type VARCHAR(255) NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  FOREIGN KEY (item_id) REFERENCES Products(id)
-);
-
-CREATE TABLE Foods (
-  item_id INT PRIMARY KEY,
-  type VARCHAR(255) NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  FOREIGN KEY (item_id) REFERENCES Products(id)
-);
