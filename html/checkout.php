@@ -67,14 +67,19 @@
             echo "</br>";
             echo "bool is true, create order";
             echo "</br>";
-            createOrder($pdo);
+            $userinfo = createOrder($pdo);
+            echo "</br>";
+            echo "<hr>";
+            echo "Your userID is: $userinfo[0]";
+            echo "</br>";
+            echo "Your orderID is: $userinfo[1]";
+            echo "</br>";
+            echo "Please save this information to look up your order.";
+            echo "</br>";
+            echo "<hr>";
         } 
-
-
     } else {echo "no";}
-    
 
-    
 ?>
   
 

@@ -224,12 +224,13 @@ function insertCC($pdo, $userID, $orderTotal, $orderID){
 
 
 function createOrder($pdo)
-{
+{   
     $userID = selectUser($pdo);
     $orderTotal	= getCartTotal($pdo);
     $orderID = insertOrder($pdo, $userID, $orderTotal);
     insertOrderDetails($pdo, $userID, $orderTotal, $orderID);
     insertCC($pdo, $userID, $orderTotal, $orderID);
+    return $userinfo = array($userID, $orderID);
 }
 
 
