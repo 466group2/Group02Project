@@ -45,15 +45,31 @@
                         $result = $statement->execute([
                             ':orderID' => $_POST['orderID']
                         ]);
+                        
                         $orderID = $_POST['orderID'];
-                        echo "</br>"; 
-                        echo "Show orders for OrderID: $orderID ";
-                        echo "</br>";
-                        echo "</br>";
-
-                        $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-                        drawTable($rows);
-                       
+                        if($orderID){
+                            echo "<hr>";
+                            echo "</br>"; 
+                            echo "Show orders for OrderID: $orderID ";
+                            echo "</br>";
+                            echo "</br>";
+                            echo "<hr>";
+                            $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+                            drawTable($rows);
+                            $totalOrders = 0;
+                            foreach($rows as $row){
+                                $totalOrders += $row['Price'];
+                            }
+                            if($totalOrders > 0){
+                                echo "<hr>";
+                                echo "<h3>";
+                                echo "Total amount of orders: $$totalOrders";
+                                echo "</h3>";
+                                echo "<hr>";
+                            }
+                        }
+                      
+                        
                 } else {
                     echo "    <p>Could not query database for unknown reason.</p>\n";
                 }
@@ -83,29 +99,40 @@
             try {
                 $statement = $pdo->prepare($sql);
                 if($statement) {
-                        $result = $statement->execute([
-                            ':UserID' => $_POST['UserID']
-                        ]);
-                        $userID = $_POST['UserID'];
+                    $result = $statement->execute([
+                        ':UserID' => $_POST['UserID']
+                    ]);
+                    $userID = $_POST['UserID'];
+                    if($userID){   
+                        echo "<hr>";
                         echo "</br>"; 
                         echo "Show orders for user: $userID ";
                         echo "</br>";
                         echo "</br>";
+                        echo "<hr>";
                         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
                         drawTable($rows);
-                       
+                        $totalOrders = 0;
+                            foreach($rows as $row){
+                                $totalOrders += $row['Price'];
+                            }
+                            if($totalOrders > 0){
+                                echo "<hr>";
+                                echo "<h3>";
+                                echo "Total amount of orders: $$totalOrders";
+                                echo "</h3>";
+                                echo "<hr>";
+                            }
+                    }
+                     
                 } else {
                     echo "    <p>Could not query database for unknown reason.</p>\n";
                 }
             } catch (PDOException $e){
                 echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
             }     
-
         }
     }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -140,6 +167,13 @@
                 display: block;
                 margin-bottom: 10px;
             }
+            body {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url('img/Hideout_Dev_6.jpg');
+            }
         </style>
     </head>
     <body>
@@ -162,7 +196,7 @@
 
         <form method="POST">
             <label for="userid number" id ="idtrack" name="idtrack">
-            UserID Numer:</label>
+            UserID Number:</label>
             <input type="text" id="UserID" name="UserID"/>
             <br>
             <button class="button track" name="track" id="UserID" value="UserID">
