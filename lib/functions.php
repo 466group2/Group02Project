@@ -34,6 +34,7 @@ function getItem($itemid, $pdo)
  * This function prints a cart item
  * @param itemarray A session array
  * @param num The number of items in a cart
+ * @return subtotal The subtotal of the cart
  */
 function printCartItem($itemarray, $num)
 {   $subtotal = 0;
@@ -50,6 +51,11 @@ function printCartItem($itemarray, $num)
         return $subtotal += $info['price'] * $num;
 }
 
+/**
+ * Function to search for and return the userID of a user
+ * @param pdo An sql query
+ * @return userID The userID of the user
+ */
 function selectUser($pdo){
     $sql ='SELECT UserID FROM User WHERE Name = :Name AND :BillingAddress = BillingAddress AND :ShippingAddress = ShippingAddress AND :Phone = Phone AND :Email = Email';
     $result = false;    
@@ -106,6 +112,11 @@ function selectUser($pdo){
         return $userID;
 }
 
+/**
+ * Get the current amount of the shopping cart
+ * @param pdo An sql query
+ * @return orderTotal The current amount of the shopping cart
+ */
 function getCartTotal($pdo){
     $orderTotal= NULL;
     foreach($_SESSION['cart'] as $pid => $quantity)
@@ -137,6 +148,13 @@ function getCartTotal($pdo){
     return $orderTotal;
 }
 
+/**
+ * Insert into Orders table if a user made a purchase. It also returns the order ID 
+ * @param pdo An sql query
+ * @param userID The user ID of the user that made a purchase
+ * @param orderTotal The total of the purchase
+ * @return orderID The order ID of the recetly inserted order
+ */
 function insertOrder($pdo, $userID, $orderTotal)
 {
     $sql ='INSERT INTO Orders (Total, UserID) VALUES (:Total, :UserID)';
@@ -165,6 +183,13 @@ function insertOrder($pdo, $userID, $orderTotal)
     return $orderID;
 }
 
+/**
+ * Insert everything from the shopping cart into OrderDetails table
+ * @param pdo An sql query
+ * @param userID The user ID of the user who made the purchase
+ * @param orderTotal The total of the purchase
+ * @param orderID The order ID of the purchase
+ */
 function insertOrderDetails($pdo, $userID, $orderTotal, $orderID)
 {
     foreach($_SESSION['cart'] as $pid => $quantity)
@@ -197,6 +222,13 @@ function insertOrderDetails($pdo, $userID, $orderTotal, $orderID)
     }    
 }
 
+/**
+ * Insert into Payment table credit card information
+ * @param pdo An sql query
+ * @param userID The user ID of the user who made a purchase
+ * @param orderTotal The total order of the purchase
+ * @param orderID The order ID of the purchase
+ */
 function insertCC($pdo, $userID, $orderTotal, $orderID){
         $sql ='INSERT INTO Payment (CreditCardInfo, PaymentAmount, UserID, OrderID) VALUES (:CreditCardInfo, :PaymentAmount, :UserID, :OrderID)';
         $result = false;    
@@ -222,7 +254,11 @@ function insertCC($pdo, $userID, $orderTotal, $orderID){
 
 }    
 
-
+/**
+ * Create an order if a customer has made a purchase
+ * @param pdo An sql query
+ * @return userinfo An array containing user ID and order ID
+ */
 function createOrder($pdo)
 {   
     $userID = selectUser($pdo);
@@ -233,7 +269,10 @@ function createOrder($pdo)
     return $userinfo = array($userID, $orderID);
 }
 
-
+/**
+ * Function to draw a table using an sql query
+ * @param rows An sql query
+ */
 function drawTable($rows) {
     if(empty($rows)){
         echo "    <p>No results found.</p>\n";
@@ -259,7 +298,10 @@ function drawTable($rows) {
     }
 }
 
-//This function calls the query to get table row information and then passes it into drawTable
+/**
+ * This function calls the query to get table row information and then passes it into drawTable
+ * @param pdo An sql query
+ */
 function drawTablePending(&$pdo){
     try {
         drawTable($pdo->query("SELECT * FROM Orders WHERE Status = 'Pending';")->fetchAll(PDO::FETCH_ASSOC));
@@ -268,6 +310,10 @@ function drawTablePending(&$pdo){
     }
 }
 
+/**
+ * Function to draw out an orders table
+ * @param pdo An sql query
+ */
 function drawTableOrders(&$pdo){
     try {
         drawTable($pdo->query("SELECT * FROM Orders WHERE NOT Status = 'Pending';")->fetchAll(PDO::FETCH_ASSOC));
