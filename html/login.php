@@ -53,7 +53,7 @@
                 background-attachment: fixed;
                 background-position: center;
                 background-repeat: no-repeat;
-                background-image: url("img/romanesenutdomus.png");
+                background-image: url("img/grail.png");
             }
             input[type=password]{
                 width:30%;
