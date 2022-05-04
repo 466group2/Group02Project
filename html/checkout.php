@@ -84,7 +84,7 @@
             unset($_SESSION['total']);
         
         } 
-    } else {echo "no";}
+    } 
 
 ?>
   
