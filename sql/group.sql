@@ -61,7 +61,7 @@ CREATE TABLE OrderDetails(
 
 CREATE TABLE Payment(
     PaymentID INT PRIMARY KEY AUTO_INCREMENT,       -- Primary Key
-    CreditCardInfo INT (17),                        -- Credit Card #
+    CreditCardInfo BIGINT(16),                        -- Credit Card #
     PaymentAmount DOUBLE(9,2) DEFAULT 0.00,          -- Payment Amout
     UserID INT,
     OrderID INT,
