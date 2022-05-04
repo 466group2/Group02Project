@@ -134,6 +134,13 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
+        body{
+            height: 50;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url("img/romanesenutdomus.png");
+        }
         .home{
             position: absolute;
             top: 10px;
@@ -141,6 +148,32 @@
             font-size: 25px;
             margin: 20px 10px;
         }
+        .submit{
+            position: relative;
+            right: 10px;
+            font-size: 25px;
+            margin: 20px 10px;
+        }
+        label{
+                display: block;
+                margin-bottom: 10px;
+        }
+        input[type=number]{
+                width: 50%;
+                margin-bottom: 10px;
+                padding: 8px;
+        }
+        input[type=text]{
+                width: 50%;
+                margin-bottom: 10px;
+                padding: 8px;
+        }
+        input[type=tracking]{
+                width: 50%;
+                margin-bottom: 10px;
+                padding: 8px;
+        }
+
         </style>
     </head>
     <body>
@@ -166,13 +199,17 @@
 
         <h2>Update Tracking, Status, and Notes:</h2>
         <form method="POST">   
-            <label for="orderID">Order to modify:</label>
+            <label for="orderID"><i class="fa fa-pencil"></i>
+                Order to modify:</label>
             <input type="number" id="orderID" name="orderID"></br>
-            <label for="notes">Notes:</label>
+            <label for="notes"><i class="fa fa-sticky-note"></i>
+                Notes:</label>
             <input type="text" id="notes" name="notes"></br>
-            <label for="tracking">Tracking:</label>
+            <label for="tracking"><i class="fa fa-truck"></i>
+                Tracking:</label>
             <input type="tracking" id="tracking" name="tracking"></br>
-            <label for="status">Status:</label>
+            <label for="status"><i class="fa fa-info-circle"></i>
+                Status:</label>
             <input type="text" id="status" name="status"></br>
             <button class="button submit" name="modify" id="checkout">
             Modify order <i class="fa fa-check"></i>
@@ -195,7 +232,7 @@
             <form method="POST">   
             <input type="number" id="UserID" name="UserID"></br>
             <button class="button submit" name="delete" id="delete" value="delete">
-            Delete user and their orders <i class="fa fa-check"></i>
+            Delete user and their orders <i class="fa fa-trash"></i>
             </button></br>
        
         </form>
