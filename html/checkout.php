@@ -78,6 +78,11 @@
             echo "Please save this information to look up your order.";
             echo "</br>";
             echo "<hr>";
+
+            unset($_SESSION['cart']);
+            unset($_SESSION['items']);
+            unset($_SESSION['total']);
+        
         } 
     } else {echo "no";}
 
