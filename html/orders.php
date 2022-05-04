@@ -132,10 +132,20 @@
                 font-size: 25px;
                 margin: 20px 10px;
             }
-            .tack{
+            .track{
                 position: relative;
+                right: 10px;
                 font-size: 25px;
                 margin: 20px 10px;
+            }
+            input[type=text]{
+                width: 50%;
+                margin-bottom: 10px;
+                padding: 8px;
+            }
+            label{
+                display: block;
+                margin-bottom: 10px;
             }
         </style>
     </head>
@@ -148,7 +158,9 @@
         <h1>Order History</h1>    
         <h2>Check your order info and its current status</h2>
         <form method="POST">
-            Order Number: <input type="text" id="ORDER_ID" name="orderID"/>
+            <label for="ordernumber" id="ordernumber" name="ordernumber">
+            Order Number:</label>
+            <input type="text" id="ORDER_ID" name="orderID"/>
             <br>
             <button class="button track" name="track" id="track" value="track">
                 Track <i class="fa fa-truck"></i>
@@ -156,7 +168,9 @@
         </form>
 
         <form method="POST">
-            UserID Numer: <input type="text" id="UserID" name="UserID"/>
+            <label for="userid number" id ="idtrack" name="idtrack">
+            UserID Numer:</label>
+            <input type="text" id="UserID" name="UserID"/>
             <br>
             <button class="button track" name="track" id="UserID" value="UserID">
                 Track <i class="fa fa-truck"></i>
