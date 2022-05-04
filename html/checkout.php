@@ -28,11 +28,8 @@
     session_name('cart');
     session_start();
 
-    echo "Was the submit button pushed?:";
     if(isset($_POST["submit_checkout"]))
     {   
-        echo "</br>";
-        echo "yes, submit button pushed";
         $bool = false;
         if(isset($_POST["shipping_is_billing"]))    
         {   
@@ -102,6 +99,7 @@
             }
             .submit{
                 position: relative;
+                right: 10px;
                 font-size: 25px;
                 margin: 20px 10px;
             }
