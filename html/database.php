@@ -59,7 +59,7 @@
         body{
             height: 50;
             background-attachment: fixed;
-            background-position: center;
+            background-position: right bottom;
             background-repeat: no-repeat;
             background-image: url("img/romanesenutdomus.png");
         }
