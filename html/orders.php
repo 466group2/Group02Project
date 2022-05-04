@@ -167,6 +167,13 @@
                 display: block;
                 margin-bottom: 10px;
             }
+            body {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url('img/Hideout_Dev_6.jpg');
+            }
         </style>
     </head>
     <body>
