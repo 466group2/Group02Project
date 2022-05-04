@@ -14,46 +14,37 @@
     //connect to mariadb
     $pdo = connectdb();
 
+   
+    if(isset($_POST["modify"])){
+       
 
-    if(isset($_POST["delete"])){
-        $deleteArray = array("DELETE FROM Payment WHERE UserID = :UserID;",
-        "DELETE FROM OrderDetails WHERE UserID = :UserID;",
-        "DELETE FROM Orders WHERE UserID = :UserID;",
-        "DELETE FROM User WHERE UserID = :UserID;");
-        foreach($deleteArray as $stm)
-        { 
-            $sql = $stm;
-    
-            $result = false;    
-            try {
-                $statement = $pdo->prepare($sql);
-                if($statement) {
-                        $result = $statement->execute([
-                            ':UserID' => $_POST['UserID']
-                        ]);
-                       
-                } else {
-                    echo "    <p>Could not query database for unknown reason.</p>\n";
-                }
-            } catch (PDOException $e){
-                echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
-            }       
-        }
-        $usr = $_POST['UserID'];
+        $sql = "UPDATE Products SET qty = :qty WHERE id = :itemID;";
+        $result = false;    
+        try {
+            $statement = $pdo->prepare($sql);
+            if($statement) {
+                    $result = $statement->execute([
+                        ':itemID' => $_POST['itemID'],
+                        ':qty' => $_POST['qty']
+                    ]);
+                    
+            } else {
+                echo "    <p>Could not query database for unknown reason.</p>\n";
+            }
+        } catch (PDOException $e){
+            echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
+        }       
+
+        $itemID = $_POST['itemID'];
+        $qty = $_POST['qty'];
         echo "</br>"; 
-        echo "User# $usr's UserID, payment, and orders deleted.";
+        echo "<hr>";
+        echo "Item# $itemID updated to quantity $qty.";
+        echo "<hr>";
         echo "</br>";
-
     }
 
-    echo "Was the submit button pushed?:";
-    if(isset($_POST["modify"]))
-    {
-        echo "yes, submit button pushed";
-        echo "</br>";
-
-
-    } else {echo "no";}
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,47 +100,36 @@
     </head>
     <body>
         <h1>Employee Page - Inventory Management</h1>    
-        <h2>Products below:</h2>
         <form method="POST">
             <button class="button home" name="home">Home 
                 <i class="fa fa-home"></i>
             </button>
         </form>
 
-        <!--
-        <form method="POST"> 
-        <button class="button nuke" name="nuke">Nuke Tables 
-            </button>
-        </form>
-        -->
+        <?php
+            
+            try {
+                drawTable($pdo->query("SELECT id, name, price, qty, type FROM Products;")->fetchAll(PDO::FETCH_ASSOC));
+            } catch(PDOexception $error) {
+                echo 'Query failed: ' . $error->getMessage();
+            } 
+        ?>
 
-        <h4> post: </h4>
-        <pre> <?php print_r($_POST); ?> </pre> 
+        
 
-        <?php drawTablePending($pdo); ?>
-
-        <h2>Update Tracking, Status, and Notes:</h2>
+        <h2>Update inventory:</h2>
         <form method="POST">   
-            <label for="orderID"><i class="fa fa-pencil"></i>
-                Order to modify:</label>
-            <input type="number" id="orderID" name="orderID"></br>
-            <label for="notes"><i class="fa fa-sticky-note"></i>
-                Notes:</label>
-            <input type="text" id="notes" name="notes"></br>
-            <label for="tracking"><i class="fa fa-truck"></i>
-                Tracking:</label>
-            <input type="tracking" id="tracking" name="tracking"></br>
-            <label for="status"><i class="fa fa-info-circle"></i>
-                Status:</label>
-            <input type="text" id="status" name="status"></br>
-            <button class="button submit" name="modify" id="checkout">
-            Modify order <i class="fa fa-check"></i>
+            <label for="itemID"><i class="fa fa-pencil"></i>
+                Item to modify:</label>
+            <input type="number" min="0" id="itemID" name="itemID"></br>
+            <label for="qty"><i class="fa fa-sticky-note"></i>
+                Quantity:</label>
+            <input type="number" min="0" max="999" id="qty" name="qty"></br>
+            <button class="button submit" name="modify" id="modify">
+            Update quantity <i class="fa fa-check"></i>
             </button></br>
        
         </form>
-
-        <h2>All orders not pending below:</h2>
-        <?php drawTableOrders($pdo); ?>
 
 
     </body>
