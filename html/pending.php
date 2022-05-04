@@ -11,18 +11,13 @@
     {
         header("location:home.php");
     }
+    // Go to inventory management if db button is clicked
+    if(isset($_POST["db"]))
+    {
+        header("location:database.php");
+    }
     //connect to mariadb
     $pdo = connectdb();
-
-    /*
-    if(isset($_POST["nuke"]))
-    {
-        echo "nuke pressed";
-        echo "</br>";
-        nukeTables($pdo);
-
-    }
-    */
 
     if(isset($_POST["delete"])){
         $deleteArray = array("DELETE FROM Payment WHERE UserID = :UserID;",
@@ -137,13 +132,20 @@
         body{
             height: 50;
             background-attachment: fixed;
-            background-position: center;
+            background-position: right bottom;
             background-repeat: no-repeat;
             background-image: url("img/romanesenutdomus.png");
         }
         .home{
             position: absolute;
             top: 10px;
+            left: 10px;
+            font-size: 25px;
+            margin: 20px 10px;
+        }
+        .db{
+            position: absolute;
+            top: 60px;
             left: 10px;
             font-size: 25px;
             margin: 20px 10px;
@@ -185,15 +187,11 @@
             </button>
         </form>
 
-        <!--
-        <form method="POST"> 
-        <button class="button nuke" name="nuke">Nuke Tables 
+        <form method="POST">
+            <button class="button db" name="db">Inventory Management 
+                <i class="fa fa-folder"></i>
             </button>
         </form>
-        -->
-
-        <h4> post: </h4>
-        <pre> <?php print_r($_POST); ?> </pre> 
 
         <?php drawTablePending($pdo); ?>
 
