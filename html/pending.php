@@ -24,6 +24,37 @@
     }
     */
 
+    if(isset($_POST["delete"])){
+        $deleteArray = array("DELETE FROM Payment WHERE UserID = :UserID;",
+        "DELETE FROM OrderDetails WHERE UserID = :UserID;",
+        "DELETE FROM Orders WHERE UserID = :UserID;",
+        "DELETE FROM User WHERE UserID = :UserID;");
+        foreach($deleteArray as $stm)
+        { 
+            $sql = $stm;
+    
+            $result = false;    
+            try {
+                $statement = $pdo->prepare($sql);
+                if($statement) {
+                        $result = $statement->execute([
+                            ':UserID' => $_POST['UserID']
+                        ]);
+                       
+                } else {
+                    echo "    <p>Could not query database for unknown reason.</p>\n";
+                }
+            } catch (PDOException $e){
+                echo "    <p>Could not query from database. PDO Exception: {$e->getMessage()}</p>\n";
+            }       
+        }
+        $usr = $_POST['UserID'];
+        echo "</br>"; 
+        echo "User# $usr's UserID, payment, and orders deleted.";
+        echo "</br>";
+
+    }
+
     echo "Was the submit button pushed?:";
     if(isset($_POST["modify"]))
     {
@@ -161,10 +192,9 @@
             }
              
         ?>
-
             <form method="POST">   
-            <input type="number" id="status" name="status"></br>
-            <button class="button submit" name="modify" id="checkout">
+            <input type="number" id="UserID" name="UserID"></br>
+            <button class="button submit" name="delete" id="delete" value="delete">
             Delete user and their orders <i class="fa fa-check"></i>
             </button></br>
        
