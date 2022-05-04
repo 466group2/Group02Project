@@ -49,6 +49,7 @@
                         echo "</br>"; 
                         echo "Show orders for OrderID: $orderID ";
                         echo "</br>";
+                        echo "</br>";
 
                         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
                         drawTable($rows);
@@ -89,7 +90,7 @@
                         echo "</br>"; 
                         echo "Show orders for user: $userID ";
                         echo "</br>";
-
+                        echo "</br>";
                         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
                         drawTable($rows);
                        
