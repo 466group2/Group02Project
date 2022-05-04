@@ -50,12 +50,8 @@
 
     }
 
-    echo "Was the submit button pushed?:";
     if(isset($_POST["modify"]))
     {
-        echo "yes, submit button pushed";
-        echo "</br>";
-
         if($_POST['notes'] != NULL){
             $sql ='UPDATE Orders SET Notes = :notes WHERE OrderID = :orderID;';
             $result = false;    
@@ -67,7 +63,7 @@
                             ':orderID' => $_POST['orderID']
                         ]);
                         echo "</br>"; 
-                        echo "notes updated";
+                        echo "Notes updated.";
                         echo "</br>";
                 } else {
                     echo "    <p>Could not query database for unknown reason.</p>\n";
@@ -88,7 +84,7 @@
                             ':orderID' => $_POST['orderID']
                         ]);
                         echo "</br>"; 
-                        echo "tracking updated";
+                        echo "Tracking updated.";
                         echo "</br>";
                 } else {
                     echo "    <p>Could not query database for unknown reason.</p>\n";
@@ -107,7 +103,7 @@
                             ':orderID' => $_POST['orderID']
                         ]);
                         echo "</br>"; 
-                        echo "status updated";
+                        echo "Status updated.";
                         echo "</br>";
                 } else {
                     echo "    <p>Could not query database for unknown reason.</p>\n";
@@ -117,7 +113,7 @@
             }       
         }
 
-    } else {echo "no";}
+    } 
 ?>
 <!DOCTYPE html>
 <html lang="en">

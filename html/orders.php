@@ -16,13 +16,10 @@
     $pdo = connectdb();
 
         
-    echo "Was the submit button pushed?:";
+
     if(isset($_POST["track"]))
     {
         if($_POST['track'] == 'track'){
-            
-            echo "yes, track button pushed";
-            echo "</br>";
         
             $sql ='SELECT 
             Orders.OrderID, 
@@ -50,7 +47,7 @@
                         ]);
                         $orderID = $_POST['orderID'];
                         echo "</br>"; 
-                        echo "show orders for OrderID: $orderID ";
+                        echo "Show orders for OrderID: $orderID ";
                         echo "</br>";
 
                         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -64,9 +61,6 @@
             }       
         }
         if($_POST['track'] == 'UserID'){
-            echo "yes, UserID button pushed";
-            echo "</br>";
-        
             $sql ='SELECT
             Orders.OrderID, 
             Orders.UserID, 
@@ -108,13 +102,11 @@
 
         }
     }
-     else {echo "no";}
+
 
 
 ?>
 
-<h4> post: </h4>
-        <pre> <?php print_r($_POST); ?> </pre> 
 <!DOCTYPE html>
 <html lang="en">
     <head>
