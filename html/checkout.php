@@ -60,8 +60,6 @@
        if($bool)
         {
             echo "</br>";
-            echo "bool is true, create order";
-            echo "</br>";
             $userinfo = createOrder($pdo);
             echo "</br>";
             echo "<hr>";
