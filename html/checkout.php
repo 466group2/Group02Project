@@ -60,7 +60,10 @@
        if($bool)
         {
             echo "</br>";
+            echo "bool is true, create order";
+            echo "</br>";
             $userinfo = createOrder($pdo);
+            buy($pdo);
             echo "</br>";
             echo "<hr>";
             echo "Your userID is: $userinfo[0]";
