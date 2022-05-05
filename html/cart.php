@@ -64,6 +64,13 @@
                 font-size: 25px;
                 margin: 20px 10px;
             }
+            .remove{
+                position: relative;
+                display: inline-block;
+                top: 215px;
+                font-size: 15px;
+                margin: 10px 10px;
+            }
             .p1{
                 font-family: Arial;
             }
@@ -137,6 +144,8 @@
                 echo "<td></td>";
                 echo "<td>" . "SUBTOTAL:" . "</td>";
                 echo "<td>" . "$" . $total . "</td>";
+                echo "<td></td>";
+                echo "<td></td>";
                 echo "</tr>";
                 echo "</pre>";
                 echo "</table>";
