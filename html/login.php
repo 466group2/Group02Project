@@ -21,7 +21,6 @@
     {
         header("location:home.php");
     }
-    $password = 1234;
     // If login button has been pushed
     if(isset($_POST["login"]))
     {
