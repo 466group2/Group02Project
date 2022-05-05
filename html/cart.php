@@ -64,6 +64,13 @@
                 font-size: 25px;
                 margin: 20px 10px;
             }
+            /* .remove{
+                position: relative;
+                display: inline-block;
+                top: 215px;
+                font-size: 15px;
+                margin: 10px 10px;
+            } */
             .p1{
                 font-family: Arial;
             }
@@ -86,12 +93,25 @@
     
         <?php
         // this php block receives an item qty/id from item page
-            if ( isset($_POST['ID'], $_POST['QTY']) ) {
+            if ( isset($_POST['ID'], $_POST['QTY']) || isset($_POST['ID'], $_POST['QTY'],$_POST['SUB']) ) {
                 $id = $_POST['ID'];
                 $qty = $_POST['QTY'];
-                
-                if($id && $qty > 0){
-                    if( isset($_SESSION['cart']) && is_array($_SESSION['cart']) ){
+
+                if( isset($_POST['SUB']) ){
+                    $sub = $_POST['SUB'];
+                    if( array_key_exists($id, $_SESSION['cart']) && ($qty != $sub) ){
+                        $_SESSION['cart'][$id] -= $sub;
+                    }
+                    else if( $sub == $qty ) {
+                        foreach($_SESSION['cart'] as $k => $v) {
+                            if($k == $id)
+                              unset($_SESSION['cart'][$k]);
+                        }
+                    }
+                    unset($sub);
+                }
+                if(($id && $qty > 0) && ( !isset($_POST['SUB']) )){
+                    if( isset($_SESSION['cart']) ){
                         if( array_key_exists($id, $_SESSION['cart']) ){
                             $_SESSION['cart'][$id] += $qty;
                         }
@@ -137,6 +157,7 @@
                 echo "<td></td>";
                 echo "<td>" . "SUBTOTAL:" . "</td>";
                 echo "<td>" . "$" . $total . "</td>";
+                echo "<td></td>";
                 echo "</tr>";
                 echo "</pre>";
                 echo "</table>";
