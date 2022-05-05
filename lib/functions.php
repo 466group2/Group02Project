@@ -70,7 +70,7 @@ function selectUser($pdo){
                         ':Email' => $_POST['email']
                     ]);
                     //If user already exists, userID is the user from the above SELECT
-                    if($statement->rowCount() == 1){
+                    if($statement->rowCount()){
                     $userID = $statement->fetchColumn();
                     }
 
