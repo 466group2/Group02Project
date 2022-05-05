@@ -48,8 +48,8 @@ function printCartItem($itemarray, $num)
             echo "<td>" . "$" . $info['price'] * $num  . "</td>";
             echo <<<HTML
             <td><form action='cart.php' method='POST'>
-                <table><tr><input type='number' value='1' min='1' max="{$num}" name='SUB'>
-                <button><i class='fa fa-trash-o'></i></button> </tr></table>
+                <table><tr><input type='number' value='{$num}' min='0' max="{$itemarray[0]['qty']}" name='SUB'>
+                <button><i class='fa fa-edit'></i></button> </tr></table>
                 <input type='hidden' value="{$info['id']}" name ='ID'>
                 <input type='hidden' value="{$num}" name ='QTY'>
             </form></td>
