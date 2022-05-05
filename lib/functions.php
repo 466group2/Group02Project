@@ -46,8 +46,14 @@ function printCartItem($itemarray, $num)
             echo "<td>" . $num . "</td>";
             echo "<td>" . "$" . $info['price'] . "</td>";
             echo "<td>" . "$" . $info['price'] * $num  . "</td>";
-            echo "<td><input type=\"number\" value=\"1\" min=\"1\" max=\"{$info['qty']}\" name=\"adjqty\"></td>";
-            echo "<td><button><i class=\"fa fa-trash-o\"></i></td></button>";
+            echo <<<HTML
+            <td><form action='cart.php' method='POST'>
+                <table><tr><input type='number' value='1' min='1' max="{$num}" name='SUB'>
+                <button><i class='fa fa-trash-o'></i></button> </tr></table>
+                <input type='hidden' value="{$info['id']}" name ='ID'>
+                <input type='hidden' value="{$num}" name ='QTY'>
+            </form></td>
+            HTML;
             echo "</tr>"; 
         }
         return $subtotal += $info['price'] * $num;
