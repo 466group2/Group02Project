@@ -70,20 +70,12 @@ function selectUser($pdo){
                         ':Email' => $_POST['email']
                     ]);
                     //If user already exists, userID is the user from the above SELECT
-                    if($statement->rowCount() == 1){
+                    if($statement->rowCount()){
                     $userID = $statement->fetchColumn();
-                    echo "userID which exists: ";
-                    print_r($userID);
-                    echo "</br>";
-                    echo " User found, selecting from user table ";
-                    echo "</br>";
                     }
 
                     //If the user does not exist in the table
                    if($statement->rowCount() == 0){
-                       echo "</br>"; 
-                       echo " User not found, inserting into user table ";
-                       echo "</br>";
                        //insert into user table 
                        $sql ='INSERT INTO User (Name, BillingAddress, ShippingAddress, Phone, Email) VALUES (:Name, :BillingAddress, :ShippingAddress, :Phone, :Email)';
                        $result = false;  
@@ -98,9 +90,8 @@ function selectUser($pdo){
                         ]);
                        }
                        //call getUser using POST array and fill userID with most recent user in User table
-                       echo "most recent user: ";
                        $userID = $pdo->lastInsertId();
-                       print_r($userID);
+                      
                     }
                    
             } else {
@@ -129,9 +120,6 @@ function getCartTotal($pdo){
                     $result = $statement->execute([
                         ':PID' => $pid,
                     ]);
-                    echo "</br>"; 
-                    echo " price found ";
-                    echo "</br>";
             } else {
                 echo "    <p>Could not query  database for unknown reason.</p>\n";
             }
@@ -140,10 +128,6 @@ function getCartTotal($pdo){
         }       
          
         $orderTotal += $statement->fetchColumn();
-        echo "</br>"; 
-                    echo " the total is currently: ";
-                    echo $orderTotal;
-                    echo "</br>";
     }
     return $orderTotal;
 }
@@ -166,9 +150,6 @@ function insertOrder($pdo, $userID, $orderTotal)
                         ':Total' => $orderTotal,
                         ':UserID' => $userID 
                     ]);
-                    echo "</br>"; 
-                    echo " Order inserted into Orders table ";
-                    echo "</br>";
             } else {
                 echo "    <p>Could not query  database for unknown reason.</p>\n";
             }
@@ -177,9 +158,7 @@ function insertOrder($pdo, $userID, $orderTotal)
         }       
 
     //Get most recent orderID to insert into OrderDetails table    
-    echo " Order number: ";
     $orderID = $pdo->lastInsertId();
-    print_r($orderID);
     return $orderID;
 }
 
@@ -209,9 +188,6 @@ function insertOrderDetails($pdo, $userID, $orderTotal, $orderID)
                         ':QTYOrdered' => $quantity,
                         ':ItemID' => $pid
                     ]);
-                    echo "</br>"; 
-                    echo "Row for PN $pid inserted into OrderDetails table ";
-                    echo "</br>";
             } else {
                 echo "    <p>Could not query  database for unknown reason.</p>\n";
             }
@@ -242,9 +218,6 @@ function insertCC($pdo, $userID, $orderTotal, $orderID){
                         ':OrderID' => $orderID
                     ]);
                     $cc = $_POST['credit_card'];
-                    echo "</br>"; 
-                    echo "CC# $cc for order# $orderID from user# $userID inserted into Payment table ";
-                    echo "</br>";
             } else {
                 echo "    <p>Could not query  database for unknown reason.</p>\n";
             }
@@ -322,16 +295,6 @@ function drawTableOrders(&$pdo){
     }
 }
 
-/*
-function nukeTables(&$pdo){
-    $pdo->query(file_get_contents('../sql/group.sql'));
-    echo "tables droped and recreated";
-    echo "</br>";
 
-    $pdo->query(file_get_contents('../sql/load.sql'));
-    echo "tables loaded";
-    echo "</br>";
-}
-*/
 ?>
 
