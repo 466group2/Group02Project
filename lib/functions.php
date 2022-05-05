@@ -306,6 +306,13 @@ function drawTableOrders(&$pdo){
     }
 }
 
+/**
+ * Remove from Products the amount after a customer has made a purche
+ * @param merch The prodcut ID of the item to remove
+ * @param howmuch The quantity to be removed from Prodcuts table
+ * @param pdo An sql query
+ * @return result The result of the query
+ */
 function buy($merch, $howmuch, &$pdo){
         $sql = 'UPDATE Products SET qty = qty - :QTY WHERE id=:id';
         $result = false;
