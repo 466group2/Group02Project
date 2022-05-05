@@ -20,7 +20,7 @@
     if(isset($_POST["track"]))
     {
         if($_POST['track'] == 'track'){
-        
+            // An sql query to get info on an order
             $sql ='SELECT 
             Orders.OrderID, 
             Orders.UserID, 
@@ -38,21 +38,28 @@
             INNER JOIN User
             ON User.UserID = OrderDetails.UserID
             WHERE OrderDetails.OrderID = :orderID;';
+
+            // An sql query to get info on status and tracking
+            $track = $track = 'SELECT Status, TrackingNum
+            From Orders WHERE OrderID = :orderID;';
+
             $result = false;    
             try {
                 $statement = $pdo->prepare($sql);
-                if($statement) {
+                $tracking = $pdo->prepare($track);
+                if($statement && $tracking) {
                         $result = $statement->execute([
                             ':orderID' => $_POST['orderID']
                         ]);
-                        
+
+                        $gps = $tracking->execute([
+                            ':orderID' => $_POST['orderID']
+                        ]);
+
                         $orderID = $_POST['orderID'];
                         if($orderID){
                             echo "<hr>";
-                            echo "</br>"; 
-                            echo "Show orders for OrderID: $orderID ";
-                            echo "</br>";
-                            echo "</br>";
+                            echo "<h3>Show orders for OrderID: $orderID </h3>";
                             echo "<hr>";
                             $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
                             drawTable($rows);
@@ -67,9 +74,11 @@
                                 echo "</h3>";
                                 echo "<hr>";
                             }
+                            $ups = $tracking->fetchAll(PDO::FETCH_ASSOC);
+                            echo "<h3>Status and Tracking Number of OrderID: $orderID </h3>";
+                            drawTable($ups);
+                            echo "<hr>";
                         }
-                      
-                        
                 } else {
                     echo "    <p>Could not query database for unknown reason.</p>\n";
                 }
@@ -78,6 +87,7 @@
             }       
         }
         if($_POST['track'] == 'UserID'){
+            // An sql query to get all purchases a user has made
             $sql ='SELECT
             Orders.OrderID, 
             Orders.UserID, 
@@ -95,20 +105,27 @@
             INNER JOIN User
             ON User.UserID = OrderDetails.UserID
             WHERE OrderDetails.UserID = :UserID;';
+
+            $track = $track = 'SELECT OrderID, Status, TrackingNum
+            From Orders WHERE UserID = :UserID;';
+
             $result = false;    
             try {
                 $statement = $pdo->prepare($sql);
-                if($statement) {
+                $tracking = $pdo->prepare($track);
+                if($statement && $tracking) {
                     $result = $statement->execute([
                         ':UserID' => $_POST['UserID']
                     ]);
+
+                    $gpts = $tracking->execute([
+                        ':UserID' => $_POST['UserID']
+                    ]);
+
                     $userID = $_POST['UserID'];
                     if($userID){   
                         echo "<hr>";
-                        echo "</br>"; 
-                        echo "Show orders for user: $userID ";
-                        echo "</br>";
-                        echo "</br>";
+                        echo "<h3>Show orders for User: $userID </h3>";
                         echo "<hr>";
                         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
                         drawTable($rows);
@@ -123,6 +140,10 @@
                                 echo "</h3>";
                                 echo "<hr>";
                             }
+                        $fedex = $tracking->fetchAll(PDO::FETCH_ASSOC);
+                        echo "<h3>OrderID, Status and Tracking Number</h3>";
+                        drawTable($fedex);
+                        echo "<hr>";
                     }
                      
                 } else {
@@ -184,6 +205,8 @@
         </form>
         <h1>Order History</h1>    
         <h2>Check your order info and its current status</h2>
+        <hr>
+        <h3>Track by</h3>
         <form method="POST">
             <label for="ordernumber" id="ordernumber" name="ordernumber">
             Order Number:</label>
@@ -193,7 +216,8 @@
                 Track <i class="fa fa-truck"></i>
             </button>
         </form>
-
+        <hr>
+        <h3>Or</h3>
         <form method="POST">
             <label for="userid number" id ="idtrack" name="idtrack">
             UserID Number:</label>
@@ -203,5 +227,6 @@
                 Track <i class="fa fa-truck"></i>
             </button>
         </form>
+        <hr>
     </body>
 </html>
