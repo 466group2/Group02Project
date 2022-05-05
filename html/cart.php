@@ -128,7 +128,6 @@
             if($_SESSION){
                 //testing out session
                 $total = 0;
-                echo "<pre>";
                 echo "<table border='1'>
                 <tr>
                 <th>Image</th>
@@ -160,7 +159,6 @@
                 echo "<td>" . "$" . $total . "</td>";
                 echo "<td></td>";
                 echo "</tr>";
-                echo "</pre>";
                 echo "</table>";
                 $_SESSION['total'] = $total;
             }

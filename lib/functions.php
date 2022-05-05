@@ -38,6 +38,7 @@ function getItem($itemid, $pdo)
  */
 function printCartItem($itemarray, $num)
 {   $subtotal = 0;
+    $currentPage= $_SERVER['SCRIPT_NAME'];  // Get the current file name
         foreach($itemarray as $info){
             $img = $info['image'];
             echo "<tr>";
@@ -46,15 +47,17 @@ function printCartItem($itemarray, $num)
             echo "<td>" . $num . "</td>";
             echo "<td>" . "$" . $info['price'] . "</td>";
             echo "<td>" . "$" . $info['price'] * $num  . "</td>";
-            echo <<<HTML
-            <td><form action='cart.php' method='POST'>
-                <table><tr><input type='number' value='{$num}' min='0' max="{$itemarray[0]['qty']}" name='SUB'>
-                <button><i class='fa fa-edit'></i></button> </tr></table>
-                <input type='hidden' value="{$info['id']}" name ='ID'>
-                <input type='hidden' value="{$num}" name ='QTY'>
-            </form></td>
-            HTML;
-            echo "</tr>"; 
+            if(basename($currentPage) == 'cart.php'){   // Only show editing quantity option if in cart page
+                echo <<<HTML
+                <td><form method='POST'>
+                    <table><tr><input type='number' value='{$num}' min='0' max="{$itemarray[0]['qty']}" name='SUB'>
+                    <button><i class='fa fa-edit'></i></button> </tr></table>
+                    <input type='hidden' value="{$info['id']}" name ='ID'>
+                    <input type='hidden' value="{$num}" name ='QTY'>
+                </form></td>
+                HTML;
+                echo "</tr>";
+            }
         }
         return $subtotal += $info['price'] * $num;
 }

@@ -223,11 +223,13 @@
             }
              
         ?>
+            <br>
             <form method="POST">   
-            <input type="number" id="UserID" name="UserID"></br>
+            <input type="number" id="UserID" name="UserID"
+            placeholder="Please enter a User ID to delete their account.">
             <button class="button submit" name="delete" id="delete" value="delete">
             Delete user and their orders <i class="fa fa-trash"></i>
-            </button></br>
+            </button>
        
         </form>
 
