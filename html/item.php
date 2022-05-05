@@ -153,22 +153,38 @@
                     <h2>{$row['tagline']}</h2>
                     <div class="row">\n
                 HTML;
-                echo <<<HTML
+                if($row['qty'] == 0){
+                    echo <<<HTML
                     <div class="column">
                     <img src="{$row['image']}" class="item" />  
                     </div>\n
                     <div class="column">
                     <h3>{$row['description']}</h3>\n
-                    <h3>$ {$row['price']}<h3>
-                    <form action="cart.php" method="POST">
-                        &nbsp;<label for="quantity">QTY:</label>
-                        <input type="number" value="1" min="1" max="{$row['qty']}" name="QTY">
-                        <input type="hidden" value="{$row['id']}" name ='ID'>
-                        <input type="submit" value="Add to cart">
-                    </form>
+                    <h3>$ {$row['price']}</h3>
+                    <h3>Out of stock</h3>
                     </div>\n
 
-                HTML; 
+                HTML;
+                }
+                else{
+                    echo <<<HTML
+                        <div class="column">
+                        <img src="{$row['image']}" class="item" />  
+                        </div>\n
+                        <div class="column">
+                        <h3>{$row['description']}</h3>\n
+                        <h3>$ {$row['price']}</h3>
+                        <h3>{$row['qty']} in stock</h3>
+                        <form action="cart.php" method="POST">
+                            &nbsp;<label for="quantity">QTY:</label>
+                            <input type="number" value="1" min="1" max="{$row['qty']}" name="QTY">
+                            <input type="hidden" value="{$row['id']}" name ='ID'>
+                            <input type="submit" value="Add to cart">
+                        </form>
+                        </div>\n
+
+                    HTML;
+                }
             }
             echo "    </div>\n";
         ?>
