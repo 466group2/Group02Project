@@ -99,10 +99,10 @@
 
                 if( isset($_POST['SUB']) ){
                     $sub = $_POST['SUB'];
-                    if( array_key_exists($id, $_SESSION['cart']) && ($qty != $sub) ){
-                        $_SESSION['cart'][$id] -= $sub;
+                    if( array_key_exists($id, $_SESSION['cart']) /*&& ($qty != $sub)*/ ){
+                        $_SESSION['cart'][$id] = $sub;
                     }
-                    else if( $sub == $qty ) {
+                    if( $sub == 0 ) {
                         foreach($_SESSION['cart'] as $k => $v) {
                             if($k == $id)
                               unset($_SESSION['cart'][$k]);
@@ -136,6 +136,7 @@
                 <th>QTY</th>
                 <th>Price</th>
                 <th>Total</th>
+                <th>Edit Quantity</th>
                 </tr>";
                 
                 if(isset($_SESSION['cart']) && !empty($_SESSION['cart']))
