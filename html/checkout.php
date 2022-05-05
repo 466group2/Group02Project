@@ -61,7 +61,10 @@
         {
            
             $userinfo = createOrder($pdo);
-            buy($pdo);
+            foreach($_SESSION['cart'] as $id => $qty)
+            {
+                buy($id, $qty, $pdo);
+            }
             echo "</br>";
             echo "<hr>";
             echo "Your userID is: $userinfo[0]";
@@ -169,7 +172,7 @@
                         $total +=  printCartItem($item,$numof);
                         $_SESSION['items'][$idnum] = $item[0]['price'];
                     }
-                } else { // If carty is empty, print out message
+                } else { // If cart is empty, print out message
                     echo "<h3 class='p1'>Cart is empty</h3>";
                     echo "<br></br>";
                 }
@@ -242,9 +245,5 @@
             </button>
         </form> <!--end form bracket-->
 
-        <?php
-        // If shipping and billing address are the same
-            if(isset($_POST["ship"]))
-        ?>
     </body>
 </html>

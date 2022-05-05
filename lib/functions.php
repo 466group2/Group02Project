@@ -306,23 +306,19 @@ function drawTableOrders(&$pdo){
     }
 }
 
-function buy(&$pdo){
-    foreach($_SESSION['cart'] as $id => $qty )
-    {
+function buy($merch, $howmuch, &$pdo){
         $sql = 'UPDATE Products SET qty = qty - :QTY WHERE id=:id';
         $result = false;
         try {
             $stmnt = $pdo->prepare($sql);
             $result = $stmnt->execute([
-                ':QTY' => $qty,
-                ':id' => $id
+                ':QTY' => $howmuch,
+                ':id' => $merch
             ]);
         } catch (PDOexception $error) {
             echo '    <p> Query failed: ' . $error->getMessage() . "</p>\n";
         }
         return $result;
     }
-}
-
 
 ?>
