@@ -61,8 +61,8 @@ CREATE TABLE Orders(
     OrderDate DATE DEFAULT CURRENT_DATE(),                  -- Date of order
     UserID INT,                                             -- UserID, foreign key
     Total DOUBLE(9,2) DEFAULT 0.00,                         -- Total of order
-    Notes VARCHAR(127),                                     -- Notes about order
-    TrackingNum VARCHAR(31),                                -- Tracking number
+    Notes VARCHAR(127) DEFAULT '',                          -- Notes about order
+    TrackingNum VARCHAR(31) DEFAULT '',                     -- Tracking number
     Status CHAR(10) DEFAULT 'Pending',                      -- Status of order
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );

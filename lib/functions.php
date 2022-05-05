@@ -91,7 +91,7 @@ function selectUser($pdo){
                        }
                        //call getUser using POST array and fill userID with most recent user in User table
                        $userID = $pdo->lastInsertId();
-                       print_r($userID);
+                      
                     }
                    
             } else {
