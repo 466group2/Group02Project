@@ -127,12 +127,16 @@
                         return $row['tier'] == $tier;
                     });
                     foreach($armors as $armor) {
+                    $product = getItem($armor['item_id'], $pdo);
                     echo <<<HTML
                             <div class="column">
                                 <a href="item.php?id={$armor['item_id']}" class="item">
                                     <img src="{$armor['image']}" class="item" /><br />
                                     {$armor['name']}
                                 </a> <br>
+                                $ {$product[0]['price']}
+                                <br>
+                                {$product[0]['qty']} in stock
                                 <!---    <form action="" method="POST">
                                     <label for=""></label>
                                     &nbsp;<label for="quantity">QTY:</label>

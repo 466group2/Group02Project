@@ -125,12 +125,16 @@
                         return $row['type'] == $type;
                     });
                     foreach($foods as $food) {
+                    $product = getItem($food['item_id'], $pdo);
                     echo <<<HTML
                             <div class="column">
                                 <a href="item.php?id={$food['item_id']}" class="item">
                                     <img src="{$food['image']}" class="item" /><br />
                                     {$food['name']}
                                 </a> <br>
+                                $ {$product[0]['price']}
+                                <br>
+                                {$product[0]['qty']} in stock
                                 <!---    <form action="" name="addtocart" method="POST">
                                     <label for=""></label>
                                     &nbsp;<label for="quantity">QTY:</label>
